@@ -1,0 +1,5643 @@
+--putchar--
+
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+--print alphabet--
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_print_alphabet(void)
+{
+	char letter;
+
+	letter = 'a';
+	while (letter <= 'z')
+	{
+		ft_putchar(letter);
+		letter++;
+	}
+}
+
+--print_reverse_alphabet--
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_print_reverse_alphabet(void)
+{
+	char letter;
+
+	letter = 'z';
+	while (letter >= 'a')
+	{
+		ft_putchar(letter);
+		letter--;
+	}
+}
+
+--print_numbers--
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_print_numbers(void)
+{
+	char number;
+
+	number = '0';
+	while (number <= '9')
+	{
+		ft_putchar(number);
+		number++;
+	}
+}
+
+--ft_is_negative--
+
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_is_negative(int n)
+{
+	if (n < 0)
+	{
+		ft_putchar('N');
+	}
+	else
+	{
+		ft_putchar('P');
+	}
+}
+
+--print_comb--
+
+#include <unistd.h>
+#include <stdbool.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_write_comb(char a, char b, char c, bool last)
+{
+	ft_putchar(a);
+	ft_putchar(b);
+	ft_putchar(c);
+	if (last)
+	{
+		ft_putchar(',');
+		ft_putchar(' ');
+	}
+}
+
+void	ft_print_comb(void)
+{
+	char a;
+	char b;
+	char c;
+	bool last;
+
+	a = '0';
+	while (a <= '7')
+	{
+		b = a + 1;
+		while (b <= '8')
+		{
+			c = b + 1;
+			while (c <= '9')
+			{
+				last = !(a == '7' && b == '8' && c == '9');
+				ft_write_comb(a, b, c, last);
+				c++;
+			}
+			b++;
+		}
+		a++;
+	}
+}
+--print_comb2--
+#include <unistd.h>
+#include <stdbool.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_write_comb(int a, int b, bool last)
+{
+	ft_putchar(48 + a / 10);
+	ft_putchar(48 + a % 10);
+	ft_putchar(' ');
+	ft_putchar(48 + b / 10);
+	ft_putchar(48 + b % 10);
+	if (last)
+	{
+		ft_putchar(',');
+		ft_putchar(' ');
+	}
+}
+
+void	ft_print_comb2(void)
+{
+	int		a;
+	int		b;
+	bool	last;
+
+	a = 0;
+	while (a <= 99)
+	{
+		b = a + 1;
+		while (b <= 99)
+		{
+			last = !(a == 98 && b == 99);
+			ft_write_comb(a, b, last);
+			b++;
+		}
+		a++;
+	}
+}
+
+--putnbr
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb == -2147483648)
+	{
+		ft_putnbr(nb / 10);
+		ft_putchar('8');
+	}
+	else if (nb < 0)
+	{
+		ft_putchar('-');
+		ft_putnbr(-nb);
+	}
+	else
+	{
+		if (nb > 9)
+		{
+			ft_putnbr(nb / 10);
+		}
+		ft_putchar(48 + nb % 10);
+	}
+}
+
+--print_combn
+
+#include <unistd.h>
+#include <stdbool.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_write_combo(int n, int holders[])
+{
+	int		index;
+	bool	last;
+
+	index = 0;
+	while (index < n)
+	{
+		ft_putchar(48 + holders[index]);
+		index++;
+	}
+	index = n - 1;
+	last = true;
+	while (index >= 0)
+	{
+		if (holders[index] != 9 - (n - 1 - index))
+		{
+			last = false;
+			break ;
+		}
+		index--;
+	}
+	if (!last)
+	{
+		ft_putchar(',');
+		ft_putchar(' ');
+	}
+}
+
+void	ft_print_combn_recursive(int n, int curr, int holders[], int st_index)
+{
+	int index;
+	int max;
+
+	if (curr == n)
+	{
+		ft_write_combo(n, holders);
+	}
+	else
+	{
+		max = 10 - (n - curr);
+		index = st_index + 1;
+		while (index <= max)
+		{
+			holders[curr] = index;
+			ft_print_combn_recursive(n, curr + 1, holders, index);
+			index++;
+		}
+	}
+}
+
+void	ft_print_combn(int n)
+{
+	int holders[10];
+	int index;
+
+	index = 0;
+	while (index < n)
+	{
+		holders[index] = 0;
+		index++;
+	}
+	ft_print_combn_recursive(n, 0, holders, -1);
+}
+
+--ft_ft
+void	ft_ft(int *nbr)
+{
+	*nbr = 42;
+}
+--ft_ultimate_ft--
+void	ft_ultimate_ft(int *********nbr)
+{
+	*********nbr = 42;
+}
+
+--ft_swap--
+void	ft_swap(int *a, int *b)
+{
+	int c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+--ft_div_mod--
+void	ft_div_mod(int a, int b, int *div, int *mod)
+{
+	*div = a / b;
+	*mod = a % b;
+}
+
+--ft_ultimate_div_mod--
+void	ft_ultimate_div_mod(int *a, int *b)
+{
+	int div;
+	int mod;
+
+	div = *a / *b;
+	mod = *a % *b;
+	*a = div;
+	*b = mod;
+}
+
+--putstr--
+
+#include <unistd.h>
+#include <stdbool.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putstr(char *str)
+{
+	char next_char;
+
+	while (true)
+	{
+		next_char = *str;
+		if (next_char == '\0')
+		{
+			break ;
+		}
+		ft_putchar(next_char);
+		str++;
+	}
+}
+
+--ft_strlen--
+
+int		ft_strlen(char *str)
+{
+	int length;
+
+	length = 0;
+	while (*(str++) != '\0')
+	{
+		length++;
+	}
+	return (length);
+}
+
+--ft_rev_int_tab--
+
+void	ft_rev_int_tab(int *tab, int size)
+{
+	int index;
+	int tmp;
+
+	index = 0;
+	while (index < size / 2)
+	{
+		tmp = tab[index];
+		tab[index] = tab[size - 1 - index];
+		tab[size - 1 - index] = tmp;
+		index++;
+	}
+}
+
+--ft_sort_int_tab--
+
+#include <stdbool.h>
+
+void	ft_swap(int *a, int *b)
+{
+	int c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+void	ft_sort_int_tab(int *tab, int size)
+{
+	int		read_index;
+	int		index;
+	bool	swapped;
+
+	read_index = 0;
+	while (true)
+	{
+		swapped = false;
+		index = 0;
+		while (index < size)
+		{
+			if (tab[index] > tab[index + 1])
+			{
+				ft_swap(&tab[index], &tab[index + 1]);
+				swapped = true;
+			}
+			index++;
+		}
+		if (!swapped)
+		{
+			break ;
+		}
+		read_index++;
+	}
+}
+
+--ft_sort_int_tab--
+
+void	ft_swap(int *a, int *b)
+{
+	int c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+void	ft_sort_int_tab(int *tab, int size)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (tab[j] < tab[i])
+			{
+				ft_swap(tab + j, tab + i);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+--
+char	*ft_strcpy(char *dest, char *src)
+{
+	int index;
+
+	index = 0;
+	while (src[index] != '\0')
+	{
+		dest[index] = src[index];
+		index++;
+	}
+	dest[index] = '\0';
+	return (dest);
+}
+
+--
+char	*ft_strncpy(char *dest, char *src, unsigned int n)
+{
+	unsigned int index;
+
+	index = 0;
+	while (index < n && src[index] != '\0')
+	{
+		dest[index] = src[index];
+		index++;
+	}
+	while (index < n)
+	{
+		dest[index] = '\0';
+		index++;
+	}
+	return (dest);
+}
+
+--
+#include <stdbool.h>
+
+int		ft_str_is_alpha(char *str)
+{
+	int		index;
+	bool	valid;
+	char	curr;
+
+	index = 0;
+	valid = true;
+	while (true)
+	{
+		curr = str[index];
+		if (curr == '\0')
+		{
+			break ;
+		}
+		if (!((curr >= 'A' && curr <= 'Z') || (curr >= 'a' && curr <= 'z')))
+		{
+			valid = false;
+			break ;
+		}
+		index++;
+	}
+	return (valid);
+}
+
+--
+
+#include <stdbool.h>
+
+int		ft_str_is_numeric(char *str)
+{
+	int		index;
+	bool	valid;
+	char	curr;
+
+	index = 0;
+	valid = true;
+	while (true)
+	{
+		curr = str[index];
+		if (curr == '\0')
+		{
+			break ;
+		}
+		if (!(curr >= '0' && curr <= '9'))
+		{
+			valid = false;
+			break ;
+		}
+		index++;
+	}
+	return (valid);
+}
+
+--
+#include <stdbool.h>
+
+int		ft_str_is_lowercase(char *str)
+{
+	int		index;
+	bool	valid;
+	char	curr;
+
+	index = 0;
+	valid = true;
+	while (true)
+	{
+		curr = str[index];
+		if (curr == '\0')
+		{
+			break ;
+		}
+		if (!(curr >= 'a' && curr <= 'z'))
+		{
+			valid = false;
+			break ;
+		}
+		index++;
+	}
+	return (valid);
+}
+
+--
+#include <stdbool.h>
+
+int		ft_str_is_uppercase(char *str)
+{
+	int		index;
+	bool	valid;
+	char	curr;
+
+	index = 0;
+	valid = true;
+	while (true)
+	{
+		curr = str[index];
+		if (curr == '\0')
+		{
+			break ;
+		}
+		if (!(curr >= 'A' && curr <= 'Z'))
+		{
+			valid = false;
+			break ;
+		}
+		index++;
+	}
+	return (valid);
+}
+--
+#include <stdbool.h>
+
+int		ft_str_is_printable(char *str)
+{
+	int		index;
+	bool	valid;
+	char	curr;
+
+	index = 0;
+	valid = true;
+	while (true)
+	{
+		curr = str[index];
+		if (curr == '\0')
+		{
+			break ;
+		}
+		if (!(curr >= ' ') || curr == 127)
+		{
+			valid = false;
+			break ;
+		}
+		index++;
+	}
+	return (valid);
+}
+
+--
+#include <stdbool.h>
+
+char	*ft_strupcase(char *str)
+{
+	int		index;
+	char	curr;
+
+	index = 0;
+	while (true)
+	{
+		curr = str[index];
+		if (curr == '\0')
+		{
+			break ;
+		}
+		if (curr >= 'a' && curr <= 'z')
+		{
+			str[index] = curr - 32;
+		}
+		index++;
+	}
+	return (str);
+}
+
+--
+#include <stdbool.h>
+
+char	*ft_strlowcase(char *str)
+{
+	int		index;
+	char	curr;
+
+	index = 0;
+	while (true)
+	{
+		curr = str[index];
+		if (curr == '\0')
+		{
+			break ;
+		}
+		if (curr >= 'A' && curr <= 'Z')
+		{
+			str[index] = curr + 32;
+		}
+		index++;
+	}
+	return (str);
+}
+
+--*ft_strcapitalize--
+
+#include <stdbool.h>
+
+void	ft_transform_char(char *c, bool to_upper)
+{
+	if (!to_upper)
+	{
+		if (*c >= 'A' && *c <= 'Z')
+		{
+			*c = *c + 32;
+		}
+	}
+	else
+	{
+		if (*c >= 'a' && *c <= 'z')
+		{
+			*c = *c - 32;
+		}
+	}
+}
+
+bool	is_char_alpha(char c)
+{
+	return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+}
+
+bool	is_char_numeric(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+void	ft_strcapitalize_delegate(char *curr, bool *in_word, bool *skip_word)
+{
+	bool first_letter;
+
+	first_letter = false;
+	if (!*in_word)
+	{
+		if (is_char_numeric(*curr))
+			*skip_word = true;
+		else if (is_char_alpha(*curr) && !*skip_word)
+		{
+			*in_word = true;
+			first_letter = true;
+		}
+	}
+	ft_transform_char(curr, false);
+	if (*in_word)
+		ft_transform_char(curr, first_letter);
+}
+
+char	*ft_strcapitalize(char *str)
+{
+	int		index;
+	char	*curr;
+	bool	in_word;
+	bool	skip_word;
+
+	index = 0;
+	in_word = false;
+	skip_word = false;
+	while (true)
+	{
+		curr = &str[index];
+		if (*curr == '\0')
+			break ;
+		ft_strcapitalize_delegate(curr, &in_word, &skip_word);
+		if (!(is_char_alpha(*curr) || is_char_numeric(*curr)))
+		{
+			in_word = false;
+			skip_word = false;
+		}
+		index++;
+	}
+	return (str);
+}
+
+--
+unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
+{
+	unsigned int	count;
+	unsigned int	index;
+
+	count = 0;
+	index = 0;
+	while (src[count] != '\0')
+		count++;
+	if (size != 0)
+	{
+		while (src[index] != '\0' && index < (size - 1))
+		{
+			dest[index] = src[index];
+			index++;
+		}
+		dest[index] = '\0';
+	}
+	return (count);
+}
+
+--
+
+#include <stdbool.h>
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+bool	is_char_printable(char c)
+{
+	return (c >= ' ' && c != 127);
+}
+
+void	ft_putstr_non_printable(char *str)
+{
+	int				index;
+	unsigned char	current;
+
+	index = 0;
+	while (true)
+	{
+		current = str[index];
+		if (current == '\0')
+			break ;
+		if (is_char_printable(current))
+			ft_putchar(current);
+		else
+		{
+			ft_putchar('\\');
+			ft_putchar("0123456789abcdef"[current / 16]);
+			ft_putchar("0123456789abcdef"[current % 16]);
+		}
+		index++;
+	}
+}
+
+--
+
+#include <stdbool.h>
+#include <unistd.h>
+
+#define MAX_PAGE_SIZE 14
+
+void	ft_buffer_number(int number, int radix, int buffer[], int index)
+{
+	if (number > radix - 1)
+		ft_buffer_number(number / radix, radix, buffer, index + 1);
+	buffer[index] = number % radix;
+}
+
+void	ft_write_hex(unsigned int number, int radix, int char_count)
+{
+	int	buffer[MAX_PAGE_SIZE + 1];
+	int	index;
+
+	index = -1;
+	while (index++ < MAX_PAGE_SIZE)
+		buffer[index] = 0;
+	ft_buffer_number(number, radix, buffer, 0);
+	index = -1;
+	while (index++ < char_count)
+		write(1, &"0123456789abcdefgh"[buffer[char_count - index]], 1);
+}
+
+void	ft_write_safe_char(char *c)
+{
+	if (*c >= ' ' && *c != 127)
+		write(1, c, 1);
+	else
+		write(1, &".", 1);
+}
+
+void	ft_print_memory_at(void *start_addr, unsigned int size, char *curr_addr)
+{
+	int index;
+
+	ft_write_hex((unsigned int)curr_addr, 16, MAX_PAGE_SIZE);
+	write(1, &": ", 2);
+	index = 0;
+	while (index++ < 16)
+	{
+		if (start_addr + size <= (void *)(curr_addr + index - 1))
+			write(1, &"  ", 2);
+		else
+			ft_write_hex((unsigned char)*(curr_addr + index - 1), 16, 1);
+		if (index % 2 == 0)
+			write(1, &" ", 1);
+	}
+	index = 0;
+	while (index++ < 16)
+		if (start_addr + size > (void *)(curr_addr + index - 1))
+			ft_write_safe_char((char *)curr_addr + index - 1);
+}
+
+void	*ft_print_memory(void *addr, unsigned int size)
+{
+	char	*curr_addr;
+
+	curr_addr = (char *)addr;
+	while ((void *)curr_addr < (addr + size))
+	{
+		ft_print_memory_at(addr, size, curr_addr);
+		write(1, &"\n", 1);
+		curr_addr += 16;
+	}
+	return (addr);
+}
+
+--
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 != '\0' && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char*)s1 - *(unsigned char*)s2);
+}
+
+--
+
+int	ft_strncmp(char *s1, char *s2, unsigned int n)
+{
+	while (*s1 != '\0' && *s2 != '\0' && n > 0)
+	{
+		if (*s1 != *s2)
+			break ;
+		s1++;
+		s2++;
+		n--;
+	}
+	if (n == 0)
+		return (0);
+	return (*(unsigned char*)s1 - *(unsigned char*)s2);
+}
+
+--
+
+char	*ft_strcat(char *dest, char *src)
+{
+	char	*dst;
+
+	dst = dest;
+	while (*dst != '\0')
+		dst++;
+	while (*src != '\0')
+	{
+		*dst = *(unsigned char *)src;
+		dst++;
+		src++;
+	}
+	*dst = '\0';
+	return (dest);
+}
+
+--
+
+char	*ft_strncat(char *dest, char *src, unsigned int nb)
+{
+	char	*dst;
+
+	dst = dest;
+	while (*dst != '\0')
+		dst++;
+	while (*src != '\0' && nb > 0)
+	{
+		*dst = *(unsigned char *)src;
+		dst++;
+		src++;
+		nb--;
+	}
+	*dst = '\0';
+	return (dest);
+}
+
+--
+
+#include <stdbool.h>
+
+char	*ft_strstr(char *str, char *to_find)
+{
+	char *haystack;
+	char *needle;
+
+	if (*to_find == '\0')
+		return (str);
+	haystack = str;
+	needle = to_find;
+	while (true)
+	{
+		if (*needle == '\0')
+			return ((char *)(haystack - (needle - to_find)));
+		if (*haystack == *needle)
+			needle++;
+		else
+			needle = to_find;
+		if (*haystack == '\0')
+			break ;
+		haystack++;
+	}
+	return (0);
+}
+
+--
+
+unsigned int	ft_str_length_fast(char *dest)
+{
+	unsigned int	count;
+
+	count = 0;
+	while (dest[count] != '\0')
+		count++;
+	return (count);
+}
+
+unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+{
+	char			*dst;
+	char			*src_start;
+	unsigned int	dst_length;
+	unsigned int	remaing;
+
+	dst = dest;
+	src_start = src;
+	remaing = size;
+	while (remaing-- != 0 && *dst != '\0')
+		dst++;
+	dst_length = dst - dest;
+	remaing = size - dst_length;
+	if (remaing == 0)
+		return (dst_length + ft_str_length_fast(src));
+	while (*src != '\0')
+	{
+		if (remaing > 1)
+		{
+			*dst++ = *src;
+			remaing--;
+		}
+		src++;
+	}
+	*dst = '\0';
+	return (dst_length + (src - src_start));
+}
+
+--
+
+int	ft_strlen(char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index])
+		index++;
+	return (index);
+}
+
+--
+
+#include <unistd.h>
+
+void	ft_putstr(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+
+--
+
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb == -2147483648)
+	{
+		ft_putnbr(nb / 10);
+		ft_putchar('8');
+	}
+	else if (nb < 0)
+	{
+		ft_putchar('-');
+		ft_putnbr(-nb);
+	}
+	else
+	{
+		if (nb > 9)
+			ft_putnbr(nb / 10);
+		ft_putchar(48 + nb % 10);
+	}
+}
+
+--
+
+#include <stdbool.h>
+
+bool	is_in_string(char c, char *str)
+{
+	while (*str)
+	{
+		if (*str == c)
+			return (true);
+		str++;
+	}
+	return (false);
+}
+
+bool	is_space(char c)
+{
+	return (is_in_string(c, "\t\n\v\f\r "));
+}
+
+bool	is_operator(char c)
+{
+	return (is_in_string(c, "+-"));
+}
+
+bool	is_number(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+int		ft_atoi(char *str)
+{
+	int	result;
+	int	minus;
+
+	result = 0;
+	minus = 1;
+	while (is_space(*str))
+		str++;
+	while (is_operator(*str))
+	{
+		if (*str == '-')
+			minus *= -1;
+		str++;
+	}
+	while (is_number(*str))
+	{
+		result *= 10;
+		result += *str - '0';
+		str++;
+	}
+	return (result * minus);
+}
+
+--
+
+#include <unistd.h>
+#include <stdbool.h>
+
+int		ft_strlen(char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index])
+		index++;
+	return (index);
+}
+
+bool	is_base_valid(char *str)
+{
+	char	*curr;
+	int		index;
+	int		jndex;
+
+	curr = str;
+	if (str == 0 || ft_strlen(str) <= 1)
+		return (false);
+	while (*curr)
+	{
+		if (*curr == '\t' || *curr == '\n' || *curr == '\v' || *curr == '\f'
+			|| *curr == '\r' || *curr == ' ' || *curr == '+' || *curr == '-')
+			return (false);
+		curr++;
+	}
+	index = 0;
+	while (index < curr - str)
+	{
+		jndex = index + 1;
+		while (jndex < curr - str)
+			if (str[index] == str[jndex++])
+				return (false);
+		index++;
+	}
+	return (true);
+}
+
+void	ft_putnbr_base_recursive(int number, char *base, int radix)
+{
+	if (number == -2147483648)
+	{
+		ft_putnbr_base_recursive(number / radix, base, radix);
+		write(1, &(base[-(number % radix)]), 1);
+		return ;
+	}
+	if (number < 0)
+	{
+		write(1, "-", 1);
+		ft_putnbr_base_recursive(-number, base, radix);
+		return ;
+	}
+	if (number > radix - 1)
+		ft_putnbr_base_recursive(number / radix, base, radix);
+	write(1, &(base[number % radix]), 1);
+}
+
+void	ft_putnbr_base(int nbr, char *base)
+{
+	int	radix;
+
+	if (!is_base_valid(base))
+		return ;
+	radix = ft_strlen(base);
+	ft_putnbr_base_recursive(nbr, base, radix);
+}
+
+--
+
+#include <unistd.h>
+#include <stdbool.h>
+
+#define NO_MATCH -1
+
+int		ft_strlen(char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index])
+		index++;
+	return (index);
+}
+
+bool	is_space(char c)
+{
+	return (c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r' || c == ' ');
+}
+
+bool	is_base_valid(char *str)
+{
+	char	*curr;
+	int		index;
+	int		jndex;
+
+	curr = str;
+	if (str == 0 || ft_strlen(str) <= 1)
+		return (false);
+	while (*curr)
+	{
+		if (is_space(*curr) || *curr == '+' || *curr == '-')
+			return (false);
+		curr++;
+	}
+	index = 0;
+	while (index < curr - str)
+	{
+		jndex = index + 1;
+		while (jndex < curr - str)
+			if (str[index] == str[jndex++])
+				return (false);
+		index++;
+	}
+	return (true);
+}
+
+int		resolve_base(char *base, char match)
+{
+	int		index;
+
+	index = 0;
+	while (base[index])
+	{
+		if (base[index] == match)
+			return (index);
+		index++;
+	}
+	return (NO_MATCH);
+}
+
+int		ft_atoi_base(char *str, char *base)
+{
+	int	radix;
+	int	result;
+	int	minus;
+	int	resolved;
+
+	if (!is_base_valid(base))
+		return (0);
+	radix = ft_strlen(base);
+	result = 0;
+	minus = 1;
+	while (is_space(*str))
+		str++;
+	while (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			minus *= -1;
+		str++;
+	}
+	while ((resolved = resolve_base(base, *str)) != NO_MATCH)
+	{
+		result *= radix;
+		result += resolved;
+		str++;
+	}
+	return (result * minus);
+}
+
+--
+
+int	ft_iterative_factorial(int nb)
+{
+	int	factorial;
+	int	index;
+
+	if (nb < 0)
+		return (0);
+	index = 1;
+	factorial = 1;
+	while (index < nb + 1)
+		factorial = factorial * index++;
+	return (factorial);
+}
+
+--
+
+int	ft_recursive_factorial_recursive(int factorial, int number)
+{
+	factorial *= number--;
+	if (number > 0)
+		return (ft_recursive_factorial_recursive(factorial, number));
+	return (factorial);
+}
+
+int	ft_recursive_factorial(int nb)
+{
+	if (nb < 0)
+		return (0);
+	if (nb == 0)
+		return (1);
+	return (ft_recursive_factorial_recursive(1, nb));
+}
+
+--
+
+int	ft_iterative_power(int nb, int power)
+{
+	int result;
+
+	if (power < 0)
+		return (0);
+	result = 1;
+	while (power-- > 0)
+		result *= nb;
+	return (result);
+}
+
+--
+
+int	ft_recursive_power_recursive(int number, int power, int result)
+{
+	if (power-- > 0)
+		return (ft_recursive_power_recursive(number, power, result *= number));
+	return (result);
+}
+
+int	ft_recursive_power(int nb, int power)
+{
+	if (power < 0)
+		return (0);
+	return (ft_recursive_power_recursive(nb, power, 1));
+}
+
+--
+
+int	ft_fibonacci(int index)
+{
+	if (index < 0)
+		return (-1);
+	if (index < 2)
+		return (index);
+	return (ft_fibonacci(index - 2) + ft_fibonacci(index - 1));
+}
+
+--
+
+int	ft_sqrt(int nb)
+{
+	unsigned int		sqrt;
+	unsigned int		index;
+
+	if (nb < 0)
+		return (0);
+	if (nb <= 1)
+		return (nb);
+	index = 0;
+	while ((sqrt = index * index) <= (unsigned int)nb)
+		index++;
+	index -= 1;
+	return (index * index == (unsigned int)nb ? index : 0);
+}
+
+--
+
+int	ft_sqrt(int nb)
+{
+	unsigned int		sqrt;
+	unsigned int		index;
+
+	if (nb < 0)
+		return (0);
+	if (nb <= 1)
+		return (nb);
+	index = 0;
+	while ((sqrt = index * index) <= (unsigned int)nb)
+		index++;
+	index -= 1;
+	return (index);
+}
+
+int	ft_is_prime(int nb)
+{
+	int	index;
+	int	sqrt;
+
+	if (nb <= 1)
+		return (0);
+	if (nb <= 3)
+		return (1);
+	if (nb % 2 == 0 || nb % 3 == 0)
+		return (0);
+	index = 2;
+	sqrt = ft_sqrt(nb);
+	while ((index <= sqrt) && (nb % index != 0))
+		index++;
+	return (index > sqrt);
+}
+
+--
+
+#include <stdbool.h>
+
+int	ft_sqrt(int nb)
+{
+	unsigned int		sqrt;
+	unsigned int		index;
+
+	if (nb < 0)
+		return (0);
+	if (nb <= 1)
+		return (nb);
+	index = 0;
+	while ((sqrt = index * index) <= (unsigned int)nb)
+		index++;
+	index -= 1;
+	return (index);
+}
+
+int	ft_is_prime(int nb)
+{
+	int	index;
+	int	sqrt;
+
+	if (nb <= 1)
+		return (0);
+	if (nb <= 3)
+		return (1);
+	if (nb % 2 == 0 || nb % 3 == 0)
+		return (0);
+	index = 2;
+	sqrt = ft_sqrt(nb);
+	while ((index <= sqrt) && (nb % index != 0))
+		index++;
+	return (index > sqrt);
+}
+
+int	ft_find_next_prime(int nb)
+{
+	while (true)
+	{
+		if (ft_is_prime(nb))
+			return (nb);
+		nb++;
+	}
+}
+
+--
+
+#include <stdbool.h>
+#include <unistd.h>
+
+#define BOARD_SIZE 10
+
+bool	is_queen_at_risk(int board[][BOARD_SIZE], int at_x, int at_y)
+{
+	int	x;
+	int	y;
+	int	offsets[2];
+
+	offsets[0] = at_y - at_x;
+	offsets[1] = at_y + at_x;
+	x = 0;
+	while (x < BOARD_SIZE)
+	{
+		y = 0;
+		while (y < BOARD_SIZE)
+		{
+			if (x == at_x || y == at_y
+				|| y == x + offsets[0] || y == -x + offsets[1])
+				if (board[y][x])
+					return (true);
+			y++;
+		}
+		x++;
+	}
+	return (false);
+}
+
+void	clear_column(int board[][BOARD_SIZE], int x)
+{
+	int	index;
+
+	index = 0;
+	while (index < BOARD_SIZE)
+	{
+		board[index++][x] = false;
+	}
+}
+
+void	print_queen_position(int board[][BOARD_SIZE])
+{
+	int	y;
+	int	column;
+
+	y = 0;
+	while (y < BOARD_SIZE)
+	{
+		column = 0;
+		while (column < BOARD_SIZE)
+		{
+			if (board[y][column])
+			{
+				write(1, &"0123456789"[column], 1);
+				break ;
+			}
+			column++;
+		}
+		y++;
+	}
+	write(1, "\n", 1);
+}
+
+bool	recursive_find(int board[][BOARD_SIZE], int x, int *soluce)
+{
+	int	y;
+
+	if (x >= BOARD_SIZE)
+		return (true);
+	y = 0;
+	while (y < BOARD_SIZE)
+	{
+		if (!is_queen_at_risk(board, x, y))
+		{
+			board[y][x] = true;
+			if (recursive_find(board, x + 1, soluce))
+			{
+				*soluce += 1;
+				print_queen_position(board);
+			}
+			board[y][x] = false;
+		}
+		y++;
+	}
+	return (false);
+}
+
+int		ft_ten_queens_puzzle(void)
+{
+	int	soluce;
+	int	board[BOARD_SIZE][BOARD_SIZE];
+	int	column;
+
+	soluce = 0;
+	column = 0;
+	while (column++ < BOARD_SIZE)
+		clear_column(board, column - 1);
+	recursive_find(board, 0, &soluce);
+	return (soluce);
+}
+
+-- ft_print_program_name
+
+#include <unistd.h>
+
+void	ft_putstr(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc > 0)
+		ft_putstr(argv[0]);
+	write(1, "\n", 1);
+}
+
+-- ft_print_params
+
+#include <unistd.h>
+
+void	ft_putstr(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+
+int		main(int argc, char **argv)
+{
+	int	index;
+
+	index = 0;
+	while (++index < argc)
+	{
+		ft_putstr(argv[index]);
+		ft_putstr("\n");
+	}
+}
+
+--ft_rev_params
+
+#include <unistd.h>
+
+void	ft_putstr(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+
+int		main(int argc, char **argv)
+{
+	int	index;
+
+	index = 0;
+	while (++index < argc)
+	{
+		ft_putstr(argv[argc - index]);
+		ft_putstr("\n");
+	}
+}
+
+-- ft_sort_params
+
+#include <stdbool.h>
+#include <unistd.h>
+
+void	ft_putstr(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+
+void	ft_swap(char **a, char **b)
+{
+	char *c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+int		ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 != '\0' && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char*)s1 - *(unsigned char*)s2);
+}
+
+void	ft_str_sort(char **arr, int size, int offset)
+{
+	int		index;
+	bool	swapped;
+
+	index = offset;
+	while (true)
+	{
+		index = offset;
+		swapped = false;
+		while (index < size)
+		{
+			if (ft_strcmp(arr[index], arr[index + 1]) > 0)
+			{
+				ft_swap(&arr[index], &arr[index + 1]);
+				swapped = true;
+			}
+			index++;
+		}
+		if (!swapped)
+			break ;
+	}
+}
+
+int		main(int argc, char **argv)
+{
+	int	index;
+
+	if (argc > 2)
+		ft_str_sort(argv, argc - 1, 1);
+	index = 0;
+	while (++index < argc)
+	{
+		ft_putstr(argv[index]);
+		ft_putstr("\n");
+	}
+}
+
+--
+
+#include <stdlib.h>
+
+int		ft_str_length(char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index])
+		index++;
+	return (index);
+}
+
+char	*ft_strdup(char *src)
+{
+	int		index;
+	char	*dest;
+
+	index = 0;
+	if ((dest = (char *)malloc(ft_str_length(src) * sizeof(char) + 1)) == NULL)
+		return (0);
+	while (src[index])
+	{
+		dest[index] = src[index];
+		index++;
+	}
+	dest[index] = '\0';
+	return (dest);
+}
+
+--
+
+#include <stdlib.h>
+
+int		*ft_range(int min, int max)
+{
+	int	range;
+	int	index;
+	int	*buffer;
+
+	if (min >= max)
+		return (0);
+	range = max - min - 1;
+	if ((buffer = malloc(range * sizeof(int))) == NULL)
+		return (0);
+	index = 0;
+	while (index <= range)
+	{
+		buffer[index] = min + index;
+		index++;
+	}
+	return (buffer);
+}
+
+--
+
+#include <stdlib.h>
+
+int		ft_ultimate_range(int **range, int min, int max)
+{
+	int	bound;
+	int	index;
+	int	*buffer;
+
+	if (min >= max)
+	{
+		*range = 0;
+		return (0);
+	}
+	bound = max - min - 1;
+	if ((buffer = malloc(bound * sizeof(int))) == NULL)
+	{
+		*range = 0;
+		return (-1);
+	}
+	*range = buffer;
+	index = 0;
+	while (index <= bound)
+	{
+		buffer[index] = min + index;
+		index++;
+	}
+	return (bound + 1);
+}
+
+--
+
+#include <stdlib.h>
+
+int		ft_str_length(char *str)
+{
+	int	index;
+
+	index = 0;
+	while (str[index])
+		index++;
+	return (index);
+}
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int index;
+
+	index = 0;
+	while (src[index] != '\0')
+	{
+		dest[index] = src[index];
+		index++;
+	}
+	dest[index] = '\0';
+	return (dest);
+}
+
+int		ft_compute_final_length(char **strings, int size, int sep_length)
+{
+	int	final_length;
+	int	index;
+
+	final_length = 0;
+	index = 0;
+	while (index < size)
+	{
+		final_length += ft_str_length(strings[index]);
+		final_length += sep_length;
+		index++;
+	}
+	final_length -= sep_length;
+	return (final_length);
+}
+
+char	*ft_strjoin(int size, char **strs, char *sep)
+{
+	int		full_length;
+	int		index;
+	char	*read_head;
+	char	*string;
+
+	if (size == 0)
+		return ((char *)malloc(sizeof(char)));
+	full_length = ft_compute_final_length(strs, size, ft_str_length(sep));
+	if (!(string = (char *)malloc((full_length + 1) * sizeof(char))))
+		return (0);
+	read_head = string;
+	index = 0;
+	while (index < size)
+	{
+		ft_strcpy(read_head, strs[index]);
+		read_head += ft_str_length(strs[index]);
+		if (index < size - 1)
+		{
+			ft_strcpy(read_head, sep);
+			read_head += ft_str_length(sep);
+		}
+		index++;
+	}
+	*read_head = '\0';
+	return (string);
+}
+
+--
+
+#include <stdbool.h>
+#include <stdlib.h>
+
+#define NO_MATCH -1
+
+int		ft_str_length(char *str);
+int		compute_number_length(unsigned int number, int radix, bool negative);
+bool	is_space(char c);
+bool	is_base_valid(char *str);
+
+int		resolve_base(char *base, char match)
+{
+	int		index;
+
+	index = 0;
+	while (base[index])
+	{
+		if (base[index] == match)
+			return (index);
+		index++;
+	}
+	return (NO_MATCH);
+}
+
+char	*ft_buffer_base(char *base, unsigned int number, bool negative)
+{
+	int		index;
+	int		radix;
+	int		length;
+	char	*string;
+
+	radix = ft_str_length(base);
+	length = compute_number_length(number, radix, negative);
+	if (!(string = (char *)malloc((length + 1) * sizeof(char))))
+		return (0);
+	if (negative)
+		string[0] = '-';
+	index = negative ? 1 : 0;
+	while (index < length)
+	{
+		string[length - (!negative) - index++] = base[number % radix];
+		number /= radix;
+	}
+	string[length] = '\0';
+	return (string);
+}
+
+char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+{
+	int				radix;
+	int				minus;
+	int				resolved;
+	unsigned int	result;
+
+	if (!is_base_valid(base_from) || !is_base_valid(base_to))
+		return (NULL);
+	radix = ft_str_length(base_from);
+	result = 0;
+	minus = 1;
+	while (is_space(*nbr))
+		nbr++;
+	while (*nbr == '+' || *nbr == '-')
+	{
+		if (*(nbr++) == '-')
+			minus *= -1;
+	}
+	while ((resolved = resolve_base(base_from, *nbr)) != NO_MATCH)
+	{
+		result *= radix;
+		result += resolved;
+		nbr++;
+	}
+	minus = result == 0 ? 1 : minus;
+	return (ft_buffer_base(base_to, result, (minus > 0 ? false : true)));
+}
+
+--
+
+#include <stdlib.h>
+#include <stdbool.h>
+
+bool	is_char_in_string(char c, char *set)
+{
+	while (true)
+	{
+		if (*set == '\0')
+			return (c == '\0');
+		if (*set == c)
+			return (true);
+		set++;
+	}
+	return (false);
+}
+
+char	*ft_strncpy(char *dest, char *src, unsigned int n)
+{
+	unsigned int index;
+
+	index = 0;
+	while (index < n && src[index] != '\0')
+	{
+		dest[index] = src[index];
+		index++;
+	}
+	while (index < n)
+	{
+		dest[index] = '\0';
+		index++;
+	}
+	return (dest);
+}
+
+int		count_occur(char *str, char *charset)
+{
+	int		count;
+	char	*previous;
+	char	*next;
+
+	count = 0;
+	previous = str;
+	next = str;
+	while (true)
+	{
+		if (is_char_in_string(*str, charset))
+			next = str;
+		if (next - previous > 1)
+			count++;
+		if (*str == '\0')
+			break ;
+		previous = next;
+		str++;
+	}
+	return (count);
+}
+
+int		add_part(char **entry, char *previous, int size, char *charset)
+{
+	if (is_char_in_string(previous[0], charset))
+	{
+		previous++;
+		size--;
+	}
+	*entry = (char *)malloc((size + 3) * sizeof(char));
+	ft_strncpy(*entry, previous, size);
+	(*entry)[size] = '\0';
+	(*entry)[size + 1] = '\0';
+	return (1);
+}
+
+char	**ft_split(char *str, char *charset)
+{
+	int		index;
+	int		size;
+	char	*previous;
+	char	*next;
+	char	**array;
+
+	array = (char **)malloc((count_occur(str, charset) + 1) * sizeof(char *));
+	index = 0;
+	previous = str;
+	next = str;
+	while (true)
+	{
+		if (is_char_in_string(*str, charset))
+			next = str;
+		if ((size = next - previous) > 1)
+			index += add_part(&array[index], previous, size, charset);
+		if (*str == '\0')
+			break ;
+		previous = next;
+		str++;
+	}
+	array[index] = 0;
+	return (array);
+}
+
+--
+
+#ifndef FT_H
+# define FT_H
+
+void	ft_putchar(char c);
+void	ft_swap(int *a, int *b);
+void	ft_putstr(char *str);
+int		ft_strlen(char *str);
+int		ft_strcmp(char *s1, char *s2);
+
+#endif
+
+--
+
+#ifndef FT_BOOLEAN_H
+# define FT_BOOLEAN_H
+
+# include <unistd.h>
+
+typedef enum {
+	false = 0,
+	true = 1
+}	t_bool;
+
+# define FALSE false
+# define TRUE true
+
+# define EVEN(number) (number % 2 == 0)
+
+# define EVEN_MSG "I have an even number of arguments.\n"
+# define ODD_MSG "I have an odd number of arguments.\n"
+
+# define SUCCESS 0
+
+#endif
+
+--
+
+#ifndef FT_ABS_H
+# define FT_ABS_H
+
+# define ABS(Value) (Value < 0 ? -Value : Value)
+
+#endif
+
+--
+
+#ifndef FT_POINT_H
+# define FT_POINT_H
+
+typedef struct	s_point
+{
+	int	x;
+	int	y;
+}				t_point;
+
+#endif
+
+--
+
+#ifndef FT_STOCK_STR_H
+# define FT_STOCK_STR_H
+
+typedef struct	s_stock_str
+{
+	int			size;
+	char		*str;
+	char		*copy;
+}				t_stock_str;
+
+#endif
+
+--
+
+#include <unistd.h>
+
+#include "ft_stock_str.h"
+
+void				ft_put_string(char *str)
+{
+	while (*str)
+	{
+		write(1, str, 1);
+		str++;
+	}
+}
+
+void				ft_put_number(int number)
+{
+	if (number > 9)
+		ft_put_number(number / 10);
+	write(1, &"0123456789"[number % 10], 1);
+}
+
+void				ft_show_tab(struct s_stock_str *par)
+{
+	int	index;
+
+	index = 0;
+	while (par[index].str != 0)
+	{
+		ft_put_string(par[index].str);
+		ft_put_string("\n");
+		ft_put_number(par[index].size);
+		ft_put_string("\n");
+		ft_put_string(par[index].copy);
+		ft_put_string("\n");
+		index++;
+	}
+}
+
+------------
+
+--ft_atoi--
+
+#include <stdbool.h>
+
+int		ft_str_length(const char *str)
+{
+	int index;
+
+	index = 0;
+	while (str[index++] != '\0');
+	return (index - 1);
+}
+
+int		ft_pow(int a, int b)
+{
+	int	result;
+
+	result = 1;
+	while (a-- != 0 && a > 0)
+	{
+		result *= b;
+	}
+	return (result);
+}
+
+void	ft_remove_excess(int *number, int index, int str_length)
+{
+	while ((str_length - index) != 0)
+	{
+		*number /= 10;
+		index++;
+	}
+}
+
+int		ft_atoi(const char* str)
+{
+	int		result;
+	int		str_length;
+	int		index;
+	bool    negative;
+
+	result = 0;
+	str_length = ft_str_length(str);
+	negative = str[0] == '-';
+	index = negative;
+	while(index <= str_length - 1)
+	{
+		if (!(str[index] >= '0' && str[index] <= '9'))
+		{
+			ft_remove_excess(&result, index, str_length);
+			break ;
+		}
+		result += (str[index] - '0') * ft_pow(str_length - index, 10);
+		index++;
+	}
+	if (negative)
+		result = -result;
+	return (result);
+}
+
+--ft_strrev--
+
+int		ft_str_length(char *str)
+{
+	int index;
+
+	index = 0;
+	while (str[index++] != '\0');
+	return (index - 1);
+}
+
+char	*ft_strrev(char *str)
+{
+	int size;
+	int index;
+	char tmp;
+
+	size = ft_str_length(str);
+	index = 0;
+	while (index != size / 2)
+	{
+		tmp = str[index];
+		str[index] = str[size - 1 - index];
+		str[size - 1 - index] = tmp;
+		index++;
+	}
+	return (str);
+}
+
+--ft_swap--
+
+void	ft_swap(int *a, int *b)
+{
+	int c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+--Hello--
+
+#include <unistd.h>
+
+int		main(void)
+{
+	write(1, &"Hello World!\n", 13);
+}
+
+--maff_revalpha--
+
+#include <unistd.h>
+
+int		main(void)
+{
+	char	letter;
+	int		index;
+
+	letter = 'z';
+	index = 1;
+	while (letter >= 'a')
+	{
+		if (index++ % 2 == 0)
+		{
+			letter -= 32;
+			write(1, &letter, 1);
+			letter += 32;
+		}
+		else
+		{
+			write(1, &letter, 1);
+		}
+		letter--;
+	}
+	write(1, &"\n", 1);
+}
+
+--only_a--
+
+#include <unistd.h>
+
+int		main(void)
+{
+	write(1, &"a", 1);
+}
+
+--ft_range--
+
+#include <stdlib.h>
+
+int     *ft_range(int start, int end)
+{
+	int	index;
+	int	bound;
+	int	*array;
+	int	minus;
+
+	minus = 1;
+	if (end < start)
+		minus *= -1;
+	if (minus > 0)
+		bound = end - start + 1;
+	else
+		bound = start - end + 1;
+	array = (int *)malloc(bound * sizeof(int));
+	index = 0;
+	while (index < bound)
+	{
+		array[index] = start + index * minus;
+		index++;
+	}
+	return (array);
+}
+
+--ft_split--
+
+#include <stdbool.h>
+#include <stdlib.h>
+
+bool	is_space(char c)
+{
+	return (c == '\f' || c == '\n' || c == '\r' ||
+		c == '\v' || c == '\t' || c == ' ');
+}
+
+int		str_length(char *str)
+{
+	int	length;
+
+	length = 0;
+	while (str[length])
+		length++;
+	return (length);
+}
+
+char	*str_copy(char *src, char *dest, int size)
+{
+	while (*src && size)
+	{
+		*dest = *src;
+		src++;
+		dest++;
+		size--;
+	}
+	*dest = '\0';
+	return (dest);
+}
+
+char	*find_next_word(char *str, int *offset, int *length)
+{
+	int		index;
+	char	*curr_word;;
+
+	index = *offset;
+	while (str[index])
+	{
+		if (!is_space(str[index]))
+		{
+			curr_word = &str[index];
+			*length = 1;
+			while (!is_space(str[index]) && str[index])
+			{
+				*offset += 1;
+				*length += 1;
+				index++;
+			}
+			return curr_word;
+		}
+		*offset += 1;
+		index++;
+	}
+	return (0);
+}
+
+int		count_words(char *str)
+{
+	int		count;
+	int		offset;
+	int		size;
+	char	*new_word;
+	char	*last_word;
+
+	count = 0;
+	offset = 0;
+	size = 0;
+	last_word = str;
+	while (true)
+	{
+		new_word = find_next_word(str, &offset, &size);
+		if (new_word == 0)
+			break ;
+		count++;
+		last_word = new_word;
+	}
+	return (count);
+}
+
+char	**ft_split(char *str)
+{
+	int		index;
+	int		offset;
+	int		size;
+	char	*next_word;
+	char	**array;
+
+	array = (char **)malloc((count_words(str) + 1) * sizeof(char *));
+	index = 0;
+	offset = 0;
+	size = 0;
+	while (index < count_words(str))
+	{
+		next_word = find_next_word(str, &offset, &size);
+		array[index] = (char *)malloc((str_length(next_word) + 1) * sizeof(char));
+		str_copy(&str[offset - (size - 1)], array[index], size - 1);
+		index++;
+	}
+	array[count_words(str)] = NULL;
+	return (array);
+}
+
+--ft_swap--
+
+void	ft_swap(int *a, int *b)
+{
+	int	c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+--last_word--
+
+#include <stdbool.h>
+#include <unistd.h>
+
+bool	is_space(char c)
+{
+	return (c == ' ' || c == '\t');
+}
+
+void	write_last_word(char *str)
+{
+	int	index;
+	bool	in_word;
+	char	*last_word;
+
+	index = 0;
+	last_word = str;
+	while (*str)
+	{
+		if (is_space(*str) && in_word)
+			in_word = false;
+		else if (!is_space(*str) && !in_word)
+		{
+			in_word = true;
+			last_word = str;
+		}
+		str++;
+	}
+	if (last_word == 0)
+		return ;
+	while (*last_word)
+	{
+		if (is_space(*last_word))
+			break ;
+		write(1, last_word, 1);
+		last_word++;
+	}
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc == 2)
+		write_last_word(argv[1]);
+	write(1, "\n", 1);
+}
+
+--only_z--
+
+#include <unistd.h>
+
+int	main(void)
+{
+	write(1, "z", 1);
+}
+
+--rot_13--
+
+#include <stdbool.h>
+#include <unistd.h>
+
+bool	is_upper(char c)
+{
+	return (c >= 'A' && c <= 'Z');
+}
+
+bool	is_lower(char c)
+{
+	return (c >= 'a' && c <= 'z');
+}
+
+char	add_13(char c)
+{
+	unsigned char	ch;
+	char			max;
+
+	if (is_lower(c))
+		max = 'z';
+	else
+		max = 'Z';
+	ch = c + 13;
+	if (ch > max)
+		ch -= 26;
+	return ch;
+}
+
+void	rot13(char *str)
+{
+	while (*str)
+	{
+		if (is_lower(*str) || is_upper(*str))
+			*str = add_13(*str);
+		write(1, str, 1);
+		str++;
+	}
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc == 2)
+		rot13(argv[1]);
+	write(1, "\n", 1);
+}
+
+
+--aff_a--
+
+#include <unistd.h>
+
+int	main(void)
+{
+	write(1, "a\n", 2);
+}
+
+--first_word--
+
+#include <unistd.h>
+#include <stdbool.h>
+
+bool	is_space(char c)
+{
+	return (c == ' ' || c == '\t');
+}
+
+void	print_first_word(char *str)
+{
+	int		index;
+	int		offset;
+	char	*word;
+
+	index = 0;
+	word = str;
+	while (is_space(str[index]))
+		index++;
+	offset = index;
+	while (true)
+	{
+		if (str[index] == '\0')
+			break ;
+		if (is_space(str[index]))
+			break ;
+		index++;
+	}
+	if (word != 0)
+		write(1, word + offset, index - offset);
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc == 2)
+		print_first_word(argv[1]);
+	write(1, "\n", 1);
+}
+
+--ft_atoi--
+
+#include <stdbool.h>
+
+bool	is_whitespace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\r' || c == '\f');
+}
+
+bool	is_operator(char c)
+{
+	return (c == '-' || c == '+');
+}
+
+bool	is_number(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+int		ft_atoi(const char *str)
+{
+	int	result;
+	int	minus;
+
+	minus = 1;
+	while (is_whitespace(*str))
+		str++;
+	if (is_operator(*str))
+	{
+		if (*str == '-')
+			minus *= -1;
+		str++;
+	}
+	result = 0;
+	while (is_number(*str))
+	{
+		result *= 10;
+		result += (*str) - '0';
+		str++;
+	}
+	return (result * minus);
+}
+
+--ft_range--
+
+#include <stdlib.h>
+#include <stdbool.h>
+
+void	ft_swap(int *a, int *b)
+{
+	int	c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+int		*ft_range(int start, int end)
+{
+	int	index;
+	int	bound;
+	int	*array;
+	bool	inversed;
+
+	if ((inversed = start > end))
+		ft_swap(&start, &end);
+	bound = end - start + 1;
+	if (!(array = malloc((bound + 2) * sizeof(int))))
+		return (NULL);
+	index = 0;
+	while (index < bound)
+	{
+		if (inversed)
+			array[bound - 1 - index] = start + index;
+		else
+			array[index] = start + index;
+		index++;
+	}
+	return (array);
+}
+
+--ft_split--
+
+#include <stdlib.h>
+#include <stdbool.h>
+
+bool	is_whitespace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n');
+}
+
+int		count_word(char *str)
+{
+	int		count;
+
+	count = 0;
+	while (*str)
+	{
+		while (is_whitespace(*str))
+			str++;
+		if (*str == '\0')
+			break ;
+		while (!is_whitespace(*str) && *str != '\0')
+			str++;
+		count++;
+	}
+	return (count);
+}
+
+char	*ft_strndup(char *str, unsigned int n)
+{
+	unsigned int	index;
+	unsigned int	length;
+	char		*dup;
+
+	length = 0;
+	while (str[length])
+		length++;
+	if (length > n)
+		length = n;
+	if (!(dup = malloc((length + 1) * sizeof(char))))
+		return (NULL);
+	index = 0;
+	while (index < length)
+	{
+		dup[index] = str[index];
+		index++;
+	}
+	dup[index] = '\0';
+	return (dup);
+}
+
+char    **ft_split(char *str)
+{
+	int		index;
+	int		word_count;
+	char	*word_start;
+	char	**array;
+
+	word_count = count_word(str);
+	if (!(array = malloc((word_count + 1) * sizeof(char *))))
+		return (NULL);
+	index = 0;
+	while (*str)
+	{
+		while (is_whitespace(*str))
+			str++;
+		if (*str == '\0')
+			break ;
+		word_start = str;
+		while (!is_whitespace(*str) && *str != '\0')
+			str++;
+		array[index] = ft_strndup(word_start, str - word_start);
+		index++;
+	}
+	array[index] = 0;
+	return (array);
+}
+
+--ft_strlen--
+
+int	ft_strlen(char *str)
+{
+	int	length;
+
+	length = 0;
+	while (str[length])
+		length++;
+	return (length);
+}
+
+--inter--
+
+#include <unistd.h>
+#include <stdbool.h>
+
+int	ft_strlen(char *str)
+{
+	int	length;
+
+	length = 0;
+	while (str[length])
+		length++;
+	return (length);
+}
+
+bool	has_already(char c, bool already[255])
+{
+	return (already[(unsigned char)c]);
+}
+
+void	set_already(char c, bool already[255])
+{
+	already[(unsigned char)c] = true;
+}
+
+void	inter(char *str1, char *str2)
+{
+	int		index;
+	int		jndex;
+	int		len1;
+	int		len2;
+	bool	already[255];
+
+	len1 = ft_strlen(str1);
+	len2 = ft_strlen(str2);
+	index = 0;
+	while (index < 255)
+	{
+		already[index] = false;
+		index++;
+	}
+	index = 0;
+	jndex = 0;
+	while (index < len1)
+	{
+		jndex = 0;
+		while (jndex < len2)
+		{
+			if (str1[index] == str2[jndex])
+			{
+				if (!has_already(str1[index], already))
+					write(1, &str1[index], 1);
+				set_already(str1[index], already);
+			}
+			jndex++;
+		}
+		index++;
+	}
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc == 3)
+		inter(argv[1], argv[2]);
+	write(1, "\n", 1);
+}
+
+--aff_last_param--
+
+#include <unistd.h>
+
+void	ft_str_write(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc > 1)
+		ft_str_write(argv[argc - 1]);
+	ft_str_write("\n");
+}
+
+--aff_z--
+
+#include <unistd.h>
+
+int	main(void)
+{
+	write(1, "z\n", 2);
+}
+
+--count_alpha--
+
+#include <stdbool.h>
+#include <unistd.h>
+#include <stdio.h>
+
+#define LETTER_COUNT 26
+#define NOT_COUNTED_YET -1
+#define CASE_OFFSET 0x20
+
+bool	ft_is_uppercase(char c)
+{
+	return (c >= 'A' && c <= 'Z');
+}
+
+int		ft_count_alpha_recursive_count(char *str, char target)
+{
+	int		count;
+	char	current;
+
+	count = 0;
+	while ((current = *str))
+	{
+		if (ft_is_uppercase(current))
+			current += CASE_OFFSET;
+		if (target == current)
+			count++;
+		str++;
+	}
+	return (count);
+}
+
+void	ft_count_alpha_print(int occurences[LETTER_COUNT + 1],
+				char order[LETTER_COUNT + 1])
+{
+	int	index;
+	int	size;
+
+	size = 0;
+	while (order[size] != '\0')
+		size++;
+	index = 0;
+	while (index < size)
+	{
+		printf("%d%c", occurences[order[index] - 'a'], order[index]);
+		if (index != size - 1)
+			printf(", ");
+		index++;
+	}
+}
+
+char	ft_count_alpha_validate(char c, int occurences[LETTER_COUNT + 1])
+{
+	if (!ft_is_uppercase(c) && !((c >= 'a' && c <= 'z')))
+		return ('\0');
+	if (ft_is_uppercase(c))
+		c += CASE_OFFSET;
+	if (occurences[(int)c - 'a'] != NOT_COUNTED_YET)
+		return ('\0');
+	return (c);
+}
+
+void	ft_count_alpha(char *str)
+{
+	int		index;
+	int		occurences[LETTER_COUNT + 1];
+	char		occurences_order[LETTER_COUNT + 1];
+	char	current;
+
+	index = 0;
+	while (index < LETTER_COUNT + 1)
+	{
+		occurences[index] = NOT_COUNTED_YET;
+		occurences_order[index] = '\0';
+		index++;
+	}
+	index = 0;
+	while (*str)
+	{
+		current = ft_count_alpha_validate(*str, occurences);
+		if (current != '\0')
+		{
+			occurences[(int)current - 'a'] = ft_count_alpha_recursive_count(str, current);
+			occurences_order[index] = current;
+			index++;
+		}
+		str++;
+	}
+	ft_count_alpha_print(occurences, occurences_order);
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc == 2)
+		ft_count_alpha(argv[1]);
+	printf("\n");
+}
+
+--fizzbuzz--
+
+#include <unistd.h>
+
+void	ft_write_number(int number)
+{
+	if (number > 9)
+		ft_write_number(number / 10);
+	write(1, &"0123456789"[number % 10], 1);
+}
+
+int	main(void)
+{
+	int	number;
+
+	number = 1;
+	while (number <= 100)
+	{
+		if (number % 3 == 0 && number % 5 == 0)
+			write(1, "fizzbuzz", 8);
+		else if (number % 3 == 0)
+			write(1, "fizz", 4);
+		else if (number % 5 == 0)
+			write(1, "buzz", 4);
+		else
+			ft_write_number(number);
+		write(1, "\n", 1);
+		number++;
+	}
+}
+
+--ft_atoi--
+
+#include <stdbool.h>
+
+bool	ft_is_whitespace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\v' || c == '\f'
+			|| c == '\n' || c == '\r');
+}
+
+bool	ft_is_number(char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+int		ft_atoi(const char *str)
+{
+	int	result;
+	int	minus;
+
+	minus = 1;
+	while (ft_is_whitespace(*str))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			minus *= -1;
+		str++;
+	}
+	result = 0;
+	while (ft_is_number(*str))
+	{
+		result *= 10;
+		result += *str - '0';
+		str++;
+	}
+	return (result * minus);
+}
+
+--ft_print_numbers--
+
+#include <unistd.h>
+
+void	ft_print_numbers(void)
+{
+	write(1, "0123456789", 10);
+}
+
+--ft_range--
+
+#include <stdlib.h>
+#include <stdbool.h>
+
+void	ft_swap_int(int *a, int *b)
+{
+	int c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+int		*ft_range(int start, int end)
+{
+	int		index;
+	int		bound;
+	bool	inversed;
+	int		*array;
+
+	if ((inversed = start > end))
+		ft_swap_int(&start, &end);
+	bound = end - start + 1;
+	if (!(array = malloc(bound * sizeof(int))))
+		return (NULL);
+	index = 0;
+	while (index < bound)
+	{
+		array[inversed ? bound - 1 - index : index] = start + index;
+		index++;
+	}
+	return (array);
+}
+
+--ft_split--
+
+#include <stdlib.h>
+#include <stdbool.h>
+
+bool	ft_is_whitespace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\v' || c == '\f'
+			|| c == '\n' || c == '\r');
+}
+
+int		ft_split_count_word(char *str)
+{
+	int		index;
+	int		count;
+
+	index = 0;
+	count = 0;
+	while (str[index])
+	{
+		while (ft_is_whitespace(str[index]))
+			index++;
+		if (str[index] == '\0')
+			break ;
+		while (!ft_is_whitespace(str[index]) && str[index] != '\0')
+			index++;
+		count++;
+	}
+	return (count);
+}
+
+char	*ft_str_n_duplicate(char *str, int n)
+{
+	int		index;
+	char	*duplicate;
+
+	if (!(duplicate = (char *)malloc((n + 1) * sizeof(char))))
+		return (NULL);
+	index = 0;
+	while (str[index] && index < n)
+	{
+		duplicate[index] = str[index];
+		index++;
+	}
+	while (index < n + 1)
+	{
+		duplicate[index] = '\0';
+		index++;
+	}
+	return (duplicate);
+}
+
+char	**ft_split(char *str)
+{
+	int		index;
+	int		words;
+	char	*start;
+	char	**array;
+
+	index = 0;
+	words = ft_split_count_word(str);
+	if (!(array = (char **)malloc((words + 1) * sizeof(char *))))
+		return (NULL);
+	while (index < words)
+	{
+		while (ft_is_whitespace(*str))
+			str++;
+		if (*str == '\0')
+			break ;
+		start = str;
+		while (!ft_is_whitespace(*str) && *str != '\0')
+			str++;
+		array[index] = ft_str_n_duplicate(start, str - start);
+		index++;
+	}
+	array[index] = 0;
+	return (array);
+}
+
+--ft_strcpy--
+
+char	*ft_strcpy(char *s1, char *s2)
+{
+	int	index;
+
+	index = 0;
+	while (s2[index])
+	{
+		s1[index] = s2[index];
+		index++;
+	}
+	s1[index] = '\0';
+	return (s1);
+}
+
+--ft_strrev--
+
+void	ft_swap_char(char *a, char *b)
+{
+	char c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+char	*ft_strrev(char *str)
+{
+	int		index;
+	int		size;
+
+	size = 0;
+	while (str[size])
+		size++;
+	index = 0;
+	while (index < size / 2)
+	{
+		ft_swap_char(&str[index], &str[size - 1 - index]);
+		index++;
+	}
+	return (str);
+}
+
+--rev_print--
+
+#include <unistd.h>
+
+char	*rev_print(char *str)
+{
+	int	index;
+	int	size;
+
+	size = 0;
+	while (str[size])
+		size++;
+	index = 0;
+	while (index < size)
+	{
+		write(1, &str[size - 1 - index], 1);
+		index++;
+	}
+	return (str);
+}
+
+--sort_list--
+
+#include <stdbool.h>
+
+#include "list.h"
+
+void	ft_swap_int(int *a, int *b)
+{
+	int c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
+{
+	t_list *current;
+	t_list *next;
+	bool	swapped;
+
+	if (lst == 0)
+		return (0);
+	swapped = true;
+	while (swapped)
+	{
+		swapped = false;
+		current = lst;
+		while (current)
+		{
+			next = current->next;
+			if (next != 0 && (*cmp)(current->data, next->data) == 0)
+			{
+				ft_swap_int(&(current->data), &(next->data));
+				swapped = true;
+			}
+			current = next;
+		}
+	}
+	return (lst);
+}
+
+--str_maxlenoc--
+
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <limits.h>
+
+int		ft_str_length(char *str)
+{
+	int	length;
+
+	length = 0;
+	while (str[length])
+		length++;
+	return (length);
+}
+
+void	ft_str_write(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+
+char	*ft_str_n_duplicate(char *str, int n)
+{
+	int		index;
+	char	*duplicate;
+
+	if (!(duplicate = (char *)malloc((n + 1) * sizeof(char))))
+		return (NULL);
+	index = 0;
+	while (str[index] && index < n)
+	{
+		duplicate[index] = str[index];
+		index++;
+	}
+	while (index < n + 1)
+	{
+		duplicate[index] = '\0';
+		index++;
+	}
+	return (duplicate);
+}
+
+int	x_cmp_n_size(char *find, char *where, int n)
+{
+	int		index;
+
+	index = 0;
+	while (find[index] == where[index] && find[index] && n--)
+		index++;
+	if (find[index] != '\0')
+		return (0);
+	return (1);
+}
+
+int	ft_compute_score(char *find, char **strs, int strs_size)
+{
+	int		index;
+	int		size;
+	int		offset;
+	int		end_offset;
+	char	*str;
+	int	score;
+	int	curr_biggest_score;
+	int	biggest_score;
+
+	index = 0;
+	biggest_score = -1;
+	while (index < strs_size)
+	{
+		str = strs[index];
+		size = ft_str_length(str);
+		offset = 0;
+		curr_biggest_score = -1;
+		while (offset < size)
+		{
+			end_offset = size;
+			while (end_offset > offset)
+			{
+				score = x_cmp_n_size(find, str + offset, end_offset - offset + 1);
+				if (score > curr_biggest_score)
+					curr_biggest_score += score;
+				end_offset--;
+			}
+			offset++;
+		}
+		biggest_score += curr_biggest_score;
+		index++;
+	}
+	return (biggest_score);
+}
+
+void	ft_do_on_all_comb(char **strs, int strs_size, char **copies, int *scores)
+{
+	int		size;
+	int		offset;
+	int		end_offset;
+	int		jndex;
+
+	size = ft_str_length(strs[0]);
+	offset = 0;
+	jndex = 0;
+	while (offset < size)
+	{
+		end_offset = size;
+		while (end_offset > offset)
+		{
+			copies[jndex] = ft_str_n_duplicate(strs[0] + offset, end_offset - offset);
+			scores[jndex] = ft_compute_score(copies[jndex], strs + 1, strs_size - 1);
+			end_offset--;
+			jndex++;
+		}
+		offset++;
+	}
+}
+
+int	ft_count_possibility(char *str)
+{
+	int		count;
+	int		size;
+	int		offset;
+	int		end_offset;
+
+	count = 0;
+	size = ft_str_length(str);
+	offset = 0;
+	while (offset < size)
+	{
+		end_offset = size;
+		while (end_offset-- > offset)
+			count++;
+		offset++;
+	}
+	return (count);
+}
+
+void	ft_swap_int(int *a, int *b)
+{
+	int c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+void    ft_swap_str(char **a, char **b)
+{
+	char *c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+void	bubble_sort(int size, char **copies, int *scores)
+{
+	int		index;
+	int		jndex;
+	bool	swapped;
+
+	index = 0;
+	while (index < size)
+	{
+		swapped = false;
+		jndex = index + 1;
+		while (jndex < size)
+		{
+			if (scores[index] < scores[jndex])
+			{
+				ft_swap_int(&(scores[index]), &(scores[jndex]));
+				ft_swap_str(&(copies[index]), &(copies[jndex]));
+				swapped = true;
+			}
+			jndex++;
+		}
+		index++;
+		if (!swapped)
+			break ;
+	}
+}
+
+bool	is_fitting_on_everyone(char *what, char **strs, int size)
+{
+	int		index;
+	char	*haystack;
+	char	*needle;
+
+	if (ft_str_length(what) == 0)
+		return (true);
+	index = 0;
+	while (index < size)
+	{
+		needle = what;
+		haystack = strs[index];
+		if (ft_str_length(haystack) != 0)
+		{
+			while (true)
+			{
+				if (*needle == '\0')
+					break ;
+				if (*needle == *haystack)
+					needle++;
+				else
+					needle = what;
+				if (*haystack == '\0')
+					return (false);
+				haystack++;
+			}
+		}
+		index++;
+	}
+	return (true);
+}
+
+void	print_best(int size, char **copies, char **originals, int originals_size, int *scores)
+{
+	int	index;
+	int	jndex;
+	int	valid_score;
+	int	validated;
+	char	**final_copies;
+	int	longest;
+
+	index = 0;
+	jndex = 0;
+	validated = 0;
+	valid_score = INT_MAX;
+	if (!(final_copies = (char **)malloc(size * sizeof(char *))))
+		return ;
+	while (index < size)
+	{
+		if (is_fitting_on_everyone(copies[index], originals, originals_size))
+		{
+			if (valid_score == INT_MAX)
+				valid_score = scores[index];
+			if (scores[index] != valid_score)
+				break ;
+			final_copies[jndex] = copies[index];
+			validated++;
+			jndex++;
+		}
+		index++;
+	}
+	if (validated == 0)
+		return ;
+	index = 0;
+	longest = -1;
+	jndex = -1;
+	while (index < validated)
+	{
+		if (longest < ft_str_length(final_copies[index]))
+		{
+			longest = ft_str_length(final_copies[index]);
+			jndex = index;
+		}
+		index++;
+	}
+	if (jndex == -1)
+		return ;
+	ft_str_write(final_copies[jndex]);
+	free(final_copies);
+}
+
+void	clear_results(int size, char **copies, int *scores)
+{
+	int	index;
+
+	index = 0;
+	while (index < size)
+	{
+		free(copies[index]);
+		index++;
+	}
+	free(copies);
+	free(scores);
+}
+
+void	ft_str_maxlenoc(char **strs, int size)
+{
+	int		possibilities;
+	char	**copies;
+	int		*scores;
+
+	possibilities = ft_count_possibility(strs[0]);
+	copies = (char **)malloc(possibilities * sizeof(char *));
+	scores = (int *)malloc(possibilities * sizeof(int));
+	if (!scores || !copies)
+		return ;
+	ft_do_on_all_comb(strs, size, copies, scores);
+	bubble_sort(possibilities, copies, scores);
+	print_best(possibilities, copies, strs + 1, size - 1, scores);
+	clear_results(possibilities, copies, scores);
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc > 1)
+		ft_str_maxlenoc(argv + 1, argc - 1);
+	write(1, "\n", 1);
+}
+
+--ulstr--
+
+#include <unistd.h>
+#include <stdbool.h>
+
+#define CASE_OFFSET 0x20
+
+bool	ft_is_uppercase(char c)
+{
+	return (c >= 'A' && c <= 'Z');
+}
+
+bool	ft_is_lowercase(char c)
+{
+	return (c >= 'a' && c <= 'z');
+}
+
+void	ft_ulstr(char *str)
+{
+	char	current;
+
+	while ((current = *str))
+	{
+		if (ft_is_uppercase(current))
+			current += CASE_OFFSET;
+		else if (ft_is_lowercase(current))
+			current -= CASE_OFFSET;
+		write(1, &current, 1);
+		str++;
+	}
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc == 2)
+		ft_ulstr(argv[1]);
+	write(1, "\n", 1);
+}
+
+--union--
+
+#include <unistd.h>
+#include <stdbool.h>
+
+int		ft_str_length(char *str)
+{
+	int	length;
+
+	length = 0;
+	while (str[length])
+		length++;
+	return (length);
+}
+
+void	ft_union_print_if(bool already[255], char c)
+{
+	if (!already[(int)c])
+	{
+		already[(int)c] = true;
+		write(1, &c, 1);
+	}
+}
+
+void	ft_union_do_str(bool already[255], char *str)
+{
+	int	index;
+	int	length;
+
+	index = 0;
+	length = ft_str_length(str);
+	while (index < length)
+	{
+		ft_union_print_if(already, str[index]);
+		index++;
+	}
+}
+
+void	ft_union(char *str1, char *str2)
+{
+	int	index;
+	bool	already[255];
+
+	index = 0;
+	while (index < 255)
+	{
+		already[index] = false;
+		index++;
+	}
+	ft_union_do_str(already, str1);
+	ft_union_do_str(already, str2);
+}
+
+int		main(int argc, char **argv)
+{
+	if (argc == 3)
+	{
+		ft_union(argv[1], argv[2]);
+	}
+	write(1, "\n", 1);
+}
+
+--brackets--
+
+#include <unistd.h>
+
+int		matching(char b1, char b2)
+{
+	if (b1 == '(' && b2 == ')')
+		return (1);
+	if (b1 == '[' && b2 == ']')
+		return (1);
+	if (b1 == '{' && b2 == '}')
+		return (1);
+	return (0);
+}
+
+int		brackets(char *str, char *stack)
+{
+	int i;
+	int top;
+
+	i = 0;
+	top = -1;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '(' || str[i] == '[' || str[i] == '{')
+		{
+			top++;
+			stack[top] = str[i];
+		}
+		if (str[i] == ')' || str[i] == ']' || str[i] == '}')
+		{
+			if (!stack[top])
+				return (0);
+			else if (!matching(stack[top], str[i]))
+				return (0);
+			else
+			{
+				stack[top] = 0;
+				top--;
+			}
+		}
+		i++;
+	}
+	if (stack[top] == 0)
+		return (1);
+	return (0);
+}
+
+int		main(int ac, char **av)
+{
+	int	 i;
+	char stack[512];
+
+	i = 1;
+	if (ac > 1)
+	{
+		while (i < ac)
+		{
+			if (brackets(av[i], stack))
+				write(1, "OK\n", 3);
+			else
+				write(1, "Error\n", 6);
+			i++;
+		}
+	}
+	else
+		write(1, "\n", 1);
+	return (0);
+}
+
+--brainfuck--
+
+#include <unistd.h>
+#include <stdlib.h>
+
+int		brackets(char *src, int i)
+{
+	int count;
+	int direction;
+
+	count = 0;
+	if (src[i] == '[')
+		direction = 1;
+	else if (src[i] == ']')
+		direction = -1;
+	while (src[i] != '\0')
+	{
+		if (src[i] == '[')
+			count++;
+		else if (src[i] == ']')
+			count--;
+		if ((src[i] == '[' || src[i] == ']') && count == 0)
+			return (i);
+		i += direction;
+	}
+	return (0);
+}
+
+void	brainfuck(char *src)
+{
+	int i;
+	int i2;
+	char *ptr;
+
+	i = 0;
+	i2 = 0;
+	ptr = (char*)malloc(sizeof(char) * 2048);
+	while (src[i] != '\0')
+	{
+		if (src[i] == '>')
+			i2++;
+		else if (src[i] == '<')
+			i2--;
+		else if (src[i] == '+')
+			ptr[i2]++;
+		else if (src[i] == '-')
+			ptr[i2]--;
+		else if (src[i] == '.')
+			write(1, &ptr[i2], 1);
+		else if ((src[i] == '[' && !(ptr[i2])) || (src[i] == ']' && ptr[i2]))
+			i = brackets(src, i);
+		i++;
+	}	
+}
+
+int		main(int ac, char **av)
+{
+	if (ac > 1)
+		brainfuck(av[1]);
+	else
+		write(1, "\n", 1);
+	return (0);
+}
+
+--fprime--
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void    fprime(int n)
+{
+	int i;
+	int n1;
+	int n2;
+	n1 = 1;
+	n2 = n;
+	i = 2;
+	if (n == 1)
+		printf("%d", n);
+	else
+	{
+	while (n > 0)
+	{
+		while (n % i >= 0 )
+		{
+			if (n % i == 0)
+			{
+				printf("%d", i);
+				n = n / i;
+				break ;
+			}
+			i++;
+		}
+		n1 *=i;
+		if (n1 != n2)
+			printf("*");
+		else 
+			break ;
+	}
+	}
+}
+
+int main (int argc, char **argv)
+{
+	int n;
+	(void)argc;
+	if (argc == 2)
+	{
+	n = atoi(argv[1]);
+	fprime(n);
+	}
+	printf ("\n");
+	return 0;
+}
+
+--ft_itoa_base--
+
+#include <stdlib.h>
+
+int		ft_nbr_len(int nb, int base)
+{
+	int i;
+
+	i = 0;
+	if (nb < 0)
+		nb *= -1;
+	while (nb > 0)
+	{
+		nb /= base;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_strdup(char *str)
+{
+	int		i;
+	int		len;
+	char	*cpy;
+
+	i = 0;
+	len = 0;
+	while (str[len] != '\0')
+		len++;
+	cpy = (char*)malloc(sizeof(char) * len);
+	if (cpy == NULL)
+		return (NULL);
+	while (str[i] != '\0')
+	{
+		cpy[i] = str[i];
+		i++;
+	}
+	cpy[i] = '\0';
+	return (cpy);
+}
+
+char	*ft_itoa_base(int value, int base)
+{
+	int		i;
+	int		n;
+	int		len;
+	char	*radix;
+	char	*result;
+
+	i = 0;
+	s = 0;
+	len = 0;
+	radix = "0123456789ABCDEF";
+	if (value == 0)
+		return (ft_strdup("0"));
+	if (base == 10 && value == -2147483648)
+		return (ft_strdup("-2147483648"));
+	len = ft_nbr_len(value, base);
+	if (base == 10 && value < 0)
+		s = 1;
+	result = (char*)malloc(sizeof(char) * (len + s + 1));
+	if (result == NULL)
+		return (NULL);
+	if (s == 1)
+	{
+		result[0] = '-';
+		len++;
+	}
+	result[len] = '\0';
+	if (value < 0)
+		value *= -1;
+	while (len > s)
+	{
+		result[len - 1] = radix[value % base];
+		value /= base;
+		len--;
+	}
+	return (result);
+}
+
+--print_memory--
+
+#include <unistd.h>
+
+void	ft_print_hex(unsigned char c)
+{
+	char *radix;
+
+	radix = "0123456789abcdef";
+	write(1, &radix[c / 16], 1);
+	write(1, &radix[c % 16], 1);
+}
+
+void	ft_print_char(unsigned char c)
+{
+	if (c >= ' ' && c <= '~')
+		write(1, &c, 1);
+	else
+		write(1, ".", 1);
+}
+
+void	print_memory(const void *addr, size_t size)
+{
+	size_t i;
+	size_t j;
+	unsigned char *ptr;
+
+	i = 0;
+	j = 0;
+	ptr = (unsigned char*)addr;
+	while (i < size)
+	{
+		j = 0;
+		while (j < 16 && i + j < size)
+		{
+			ft_print_hex(ptr[i + j]);
+			if (j % 2)
+				write(1, " ", 1);
+			j++;
+		}
+		while (j < 16)
+		{
+			write(1, "  ", 2);
+			if (j % 2)
+				write(1, " ", 1);
+			j++;
+		}
+		j = 0;
+		while (j < 16 && i + j < size)
+		{
+			ft_print_char(ptr[i + j]);
+			j++;
+		}
+		write(1, "\n", 1);
+		i += 16;
+	}
+}
+
+--rpn_calc--
+
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int		operate(int a, int b, char op)
+{
+	if (op == '+')
+		return (a + b);
+	if (op == '-')
+		return (a - b);
+	if (op == '*')
+		return (a * b);
+	if (op == '/')
+	{
+		if (b == 0)
+			return (9942);
+		return (a / b);
+	}
+	if (op == '%')
+	{
+		if (b == 0)
+			return (9942);
+		return (a % b);
+	}
+	return (9942);
+}
+
+int		isnum(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] >= '0' && str[i] <= '9')
+		return (1);
+	return (0);
+}
+
+int		isop(char op)
+{
+	if (op == '+' || op == '-' || op == '*' || op == '/' || op == '%')
+		return (1);
+	return (0);
+}
+
+int		rpn_calc(char *str, int *stack)
+{
+	int i;
+	int top;
+
+	i = 0;
+	top = -1;
+	while (str[i] != '\0')
+	{
+		if (isnum(&str[i]))
+		{
+			top++;
+			stack[top] = atoi(&str[i]);
+			while (str[i] != ' ' && str[i + 1] != '\0')
+				i++;
+		}
+		if (isop(str[i]))
+		{
+			if (top > 0)
+			{
+				if ((stack[top - 1] = operate(stack[top - 1], stack[top],
+				str[i])) == 9942)
+					return (write(1, "Error\n", 6));
+				top--;
+			}
+			else
+				return (write(1, "Error\n", 6));
+		}
+		i++;
+	}
+	if (top == 0)
+		printf("%d\n", stack[top]);
+	else
+		write(1, "Error\n", 6);
+	return (0);
+}
+
+int		main(int ac, char **av)
+{
+	int stack[512];
+
+	if (ac == 2)
+		rpn_calc(av[1], stack);
+	else
+		write(1, "Error\n", 6);
+	return (0);
+}
+
+--fprime--
+#include <stdio.h>
+#include <stdlib.h>
+
+void	fprime(int nb)
+{
+	int i;
+
+	i = 2;
+	if (nb == 1)
+	{
+		printf("1");
+		return ;
+	}
+	while (nb >= i)
+	{
+		if (nb % i == 0)
+		{
+			printf("%d", i);
+			if (nb != i)
+				printf("*");
+			nb /= i;
+			i--;
+		}
+		i++;
+	}
+}
+
+int		main(int ac, char **av)
+{
+	if (ac == 2)
+		fprime(atoi(av[1]));
+	printf("\n");
+	return (0);
+}
+
+
+--ft_itoa--
+
+#include <stdlib.h>
+
+int		nbr_len(int nbr)
+{
+	int i;
+
+	i = 1;
+	if (nbr < 0)
+	{
+		i++;
+		nbr *= -1;
+	}
+	while (nbr > 9)
+	{
+		nbr /= 10;
+		i++;
+	}
+	return (i);
+}
+
+int		ft_div(int len)
+{
+	int i;
+
+	i = 1;
+	if (len == 1)
+		return (1);
+	while (len > 1)
+	{
+		i *= 10;
+		len--;
+	}
+	return (i);
+}
+
+char	*ft_itoa(int nbr)
+{
+	int i;
+	int len;
+	int len2;
+	char *result;
+
+	i = 0;
+	len = nbr_len(nbr);
+	len2 = len;
+	if ((result = (char*)malloc(sizeof(char) * (len + 1))) == NULL)
+		return (NULL);
+	if (nbr == -2147483648)
+		return ("-2147483648\0");
+	if (nbr < 0)
+	{
+		nbr *= -1;
+		result[0] = '-';
+		i++;
+		len--;
+	}
+	while (i < len2)
+	{
+		result[i] = ((nbr / ft_div(len)) % 10) + 48;
+		len--;
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}
+
+--ft_list_foreach--
+
+#include "ft_list.h"
+
+void	ft_list_foreach(t_list *begin_list, void (*f)(void *))
+{
+	t_list *list_ptr;
+
+	list_ptr = begin_list;
+	while (list_ptr)
+	{
+		(*f)(list_ptr->data);
+		list_ptr = list_ptr->next;
+	}
+}
+
+--ft_split--
+
+#include <stdlib.h>
+# define WD_NUM 1000
+# define WD_LEN 1000
+
+char	**ft_split(char *str)
+{
+	int i;
+	int i2;
+	int i3;
+	char **tab;
+
+	i = 0;
+	i2 = 0;
+	tab = (char**)malloc(sizeof(**tab) * WD_NUM);
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+		i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] > 32)
+		{
+			i3 = 0;
+			tab[i2] = (char*)malloc(sizeof(char) * WD_LEN);
+			while (str[i] > 32)
+			{
+				tab[i2][i3] = str[i];
+				i++;
+				i3++;
+			}
+			tab[i2][i3] = '\0';
+			i2++;
+		}
+		else
+			i++;
+	}
+	tab[i2] = 0;
+	return (tab);
+}
+
+--rev_wstr--
+
+#include <unistd.h>
+#include <stdlib.h>
+
+void	ft_putstr(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+}
+
+char	**ft_split(char *str)
+{
+	int i;
+	int i2;
+	int i3;
+	char **tab;
+
+	i = 0;
+	i2 = 0;
+	tab = (char**)malloc(sizeof(char) * 100);
+	while (str[i] != '\0')
+	{
+		if (str[i] > 32)
+		{
+			i3 = 0;
+			tab[i2] = (char*)malloc(sizeof(char) * 100);
+			while (str[i] > 32)
+			{
+				tab[i2][i3] = str[i];
+				i++;
+				i3++;
+			}
+			tab[i2][i3] = '\0';
+			i2++;
+		}
+		else
+			i++;
+	}
+	tab[i2] = 0;
+	return (tab);
+}
+
+int		main(int ac, char **av)
+{
+	int i;
+	char **words;
+
+	i = 0;
+	if (ac == 2)
+	{
+		words = ft_split(av[1]);
+		while (words[i] != 0)
+			i++;
+		i--;
+		while (i >= 0)
+		{
+			ft_putstr(words[i]);
+			if (i > 0)
+				write(1, " ", 1);
+			i--;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--rostring--
+
+#include <unistd.h>
+#include <stdlib.h>
+
+void	ft_putstr(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+}
+
+char	**ft_split(char *str)
+{
+	int i;
+	int i2;
+	int i3;
+	char **tab;
+
+	i = 0;
+	i2 = 0;
+	tab = (char**)malloc(sizeof(char) * 100);
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] != ' ' && str[i] != '\t')
+		{
+			i3 = 0;
+			tab[i2] = (char*)malloc(sizeof(char) * 100);
+			while (str[i] != ' ' && str[i] != '\t' && str[i])
+			{
+				tab[i2][i3] = str[i];
+				i++;
+				i3++;
+			}
+			tab[i2][i3] = '\0';
+			i2++;
+		}
+		else
+			i++;
+	}
+	tab[i2] = 0;
+	return (tab);
+}
+
+int		main(int ac, char **av)
+{
+	int i;
+	char **tab;
+
+	i = 1;
+	if (ac > 1)
+	{
+		tab = ft_split(av[1]);
+		while (tab[i])
+		{
+			ft_putstr(tab[i]);
+			write(1, " ", 1);
+			i++;
+		}
+		ft_putstr(tab[0]);
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--sort_int_tab--
+
+void	sort_int_tab(int *tab, unsigned int size)
+{
+	unsigned int i;
+	int tmp;
+
+	i = 0;
+	while (i < size)
+	{
+		if (tab[i] > tab[i + 1])
+		{
+			tmp = tab[i];
+			tab[i] = tab[i + 1];
+			tab[i + 1] = tmp;
+			i = -1;
+		}
+		i++;
+	}
+}
+
+--sort_list--
+
+#include "list.h"
+
+t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
+{
+	int swap;
+	t_list *tmp;
+
+	tmp = lst;
+	while (lst->next != 0)
+	{
+		if (((*cmp)(lst->data, lst->next->data)) == 0)
+		{
+			swap = lst->data;
+			lst->data = lst->next->data;
+			lst->next->data = swap;
+			lst = tmp;
+		}
+		else
+			lst = lst->next;
+	}
+	lst = tmp;
+	return (lst);
+}
+
+--add_prime_sum--
+
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb > 9)
+	{
+		ft_putnbr(nb / 10);
+		ft_putnbr(nb % 10);
+	}
+	else
+		ft_putchar(nb + '0');
+}
+
+int		ft_atoi(char *str)
+{
+	int i;
+	int result;
+
+	i = 0;
+	result = 0;
+	while (str[i] != '\0')
+	{
+		result *= 10;
+		result += str[i] - '0';
+		i++;
+	}
+	return (result);
+}
+
+int		ft_is_prime(int nb)
+{
+	int i;
+
+	i = 2;
+	while (i < nb)
+	{
+		if (nb % i == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+
+}
+
+int		ft_add_prime_sum(int nb)
+{
+	int i;
+	int prime_sum;
+
+	i = 2;
+	prime_sum = 0;
+	if (nb <= 0)
+		return (0);
+	while (i <= nb)
+	{
+		if (ft_is_prime(i))
+			prime_sum += i;
+		i++;
+	}
+	return (prime_sum);
+}
+
+int		main(int ac, char **av)
+{
+	if (ac == 2)
+		ft_putnbr(ft_add_prime_sum(ft_atoi(av[1])));
+	else
+		write(1, "0", 1);
+	write(1, "\n", 1);
+	return (0);
+}
+
+--epur_str--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+
+	i = 0;
+	if (ac == 2)
+	{
+		while (av[1][i] == ' ' || av[1][i] == '\t')
+			i++;
+		while (av[1][i] != '\0')
+		{
+			if (av[1][i] == ' ' || av[1][i] == '\t')
+			{
+				if (av[1][i + 1] > 32 && av[1][i + 1] != '\0')
+					write(1, " ", 1);
+			}
+			else if (av[1][i] != ' ' && av[1][i] != '\t')
+				write(1, &av[1][i], 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--expand_str--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+
+	i = 0;
+	if (ac == 2)
+	{
+		while (av[1][i] == ' ' || av[1][i] == '\t')
+			i++;
+		while (av[1][i] != '\0')
+		{
+			if (av[1][i] == ' ' || av[1][i] == '\t')
+			{
+				if (av[1][i + 1] > 32 && av[1][i + 1] != '\0')
+					write(1, "   ", 3);
+			}
+			else if (av[1][i] != ' ' && av[1][i] != '\t')
+				write(1, &av[1][i], 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--ft_atoi_base--
+
+int		ft_atoi_base(const char *str, int str_base)
+{
+	int i;
+	int n;
+	int len;
+	int result;
+
+	i = 0;
+	n = 1;
+	result = 0;
+	if (str[i] == '-')
+	{
+		n = -1;
+		i++;
+	}
+	while (str[i] != '\0')
+	{
+		result *= str_base;
+		if (str[i] >= '0' && str[i] <= '9')
+			result += str[i] - 48;
+		else if (str[i] >= 'A' && str[i] <= 'Z')
+			result += str[i] - 55;
+		else if (str[i] >= 'a' && str[i] <= 'z')
+			result += str[i] - 87;
+		i++;
+	}
+	return (result * n);
+}
+
+--ft_list_size--
+
+int		ft_list_size(t_list *begin_list)
+{
+	t_list *list;
+	int i;
+
+	list = begin_list;
+	i = 0;
+	while (list)
+	{
+		list = list->next;
+		i++;
+	}
+	return (i);
+}
+
+--ft_rrange--
+
+#include <stdlib.h>
+
+int		ft_abs(int x)
+{
+	if (x < 0)
+		return (-x);
+	return (x);
+}
+
+int		*ft_rrange(int start, int end)
+{
+	int i;
+	int *tab;
+
+	i = 0;
+	tab = (int*)malloc(sizeof(int) * ft_abs(end - start) + 1);
+	while (end > start)
+	{
+		tab[i] = end;
+		end--;
+		i++;
+	}
+	tab[i] = end;
+	while (end < start)
+	{
+		tab[i] = end;
+		end++;
+		i++;
+	}
+	tab[i] = end;
+	return (tab);
+}
+
+--hidenp--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+	int i2;
+	int count;
+
+	i = 0;
+	i2 = 0;
+	count = 0;
+	if (ac == 3)
+	{
+		while (av[1][i] != '\0')
+		{
+			while (av[2][i2] != '\0')
+			{
+				if (av[1][i] == av[2][i2])
+				{
+					count++;
+					break ;
+				}
+				i2++;
+			}
+			i++;
+		}
+		if (av[1][count] == '\0')
+			write(1, "1", 1);
+		else
+			write(1, "0", 1);
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--paramsum--
+
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb > 9)
+	{
+		ft_putnbr(nb / 10);
+		ft_putnbr(nb % 10);
+	}
+	else
+		ft_putchar(nb + '0');
+}
+
+int		main(int ac, char **av)
+{
+	(void)av;
+	ac--;
+	ft_putnbr(ac);
+	ft_putchar('\n');
+	return (0);
+}
+
+--pgcd--
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void	pgcd(int a, int b)
+{
+	int i;
+	int gcd;
+
+	i = 1;
+	gcd = 0;
+	while (i < a && i < b)
+	{
+		if (a % i == 0 && b % i == 0)
+			gcd = i;
+		i++;
+	}
+	printf("%d", gcd);
+}
+
+int		main(int ac, char **av)
+{
+	if (ac == 3)
+		pgcd(atoi(av[1]), atoi(av[2]));
+	printf("\n");
+	return (0);
+}
+
+--print_hex--
+
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+int		ft_atoi(char *str)
+{
+	int i;
+	int result;
+
+	i = 0;
+	result = 0;
+	while (str[i] != '\0')
+	{
+		result = result * 10 + str[i] - '0';
+		i++;
+	}
+	return (result);
+}
+
+void	print_hex(int nb)
+{
+	if (nb > 16)
+	{
+		print_hex(nb / 16);
+		print_hex(nb % 16);
+	}
+	if (nb < 10)
+		ft_putchar(nb + 48);
+	else if (nb < 16)
+		ft_putchar(nb + 87);
+}
+
+int		main(int ac, char **av)
+{
+	if (ac == 2)
+		print_hex(ft_atoi(av[1]));
+	write(1, "\n", 1);
+	return (0);
+}
+
+--rstr_capitalizer--
+
+#include <unistd.h>
+
+int		ft_to_lower(char c, char d)
+{
+	if (c >= 'A' && c <= 'Z')
+	{
+		if (d != ' ' && d != '\t' && d != '\0')
+			return (1);
+	}
+	return (0);
+}
+
+int		ft_to_upper(char c, char d)
+{
+	if (c >= 'a' && c <= 'z')
+	{
+		if (d == ' ' || d == '\t' || d == '\0')
+			return (1);
+	}
+	return (0);
+}
+
+int		main(int ac, char **av)
+{
+	int i;
+	int i2;
+
+	i = 0;
+	if (ac > 1)
+	{
+		while (i < ac)
+		{
+			i++;
+			i2 = 0;
+			while (av[i][i2] != '\0')
+			{
+				if (ft_to_upper(av[i][i2], av[i][i2 + 1]))
+					av[i][i2] -= 32;
+				else if (ft_to_lower(av[i][i2], av[i][i2 + 1]))
+					av[i][i2] += 32;
+				write(1, &av[i][i2], 1);
+				i2++;
+			}
+			write(1, "\n", 1);
+		}
+	}
+	else
+		write(1, "\n", 1);
+	return (0);
+}
+
+--str_capitalizer--
+
+#include <unistd.h>
+
+int		ft_to_lower(char c, char d, int i)
+{
+	if (c != ' ' && c != '\t' && i != -1)
+	{
+		if (d >= 'A' && d <= 'Z')
+			return (1);
+	}
+	return (0);
+}
+
+int		ft_to_upper(char c, char d)
+{
+	if (c == ' ' || c == '\t')
+	{
+		if (d >= 'a' && d <= 'z')
+			return (1);
+	}
+	return (0);
+}
+
+int		main(int ac, char **av)
+{
+	int i;
+	int i2;
+
+	i = 0;
+	if (ac > 1)
+	{
+		while (i < ac)
+		{
+			i++;
+			i2 = 0;
+			while (av[i][i2] != '\0')
+			{
+				if (av[i][0] >= 'a' && av[i][0] <= 'z')
+					av[i][0] -= 32;
+				else if (ft_to_lower(av[i][i2 - 1], av[i][i2], i2 - 1))
+					av[i][i2] += 32;
+				else if (ft_to_upper(av[i][i2 - 1], av[i][i2]))
+					av[i][i2] -= 32;
+				write(1, &av[i][i2], 1);
+				i2++;
+			}
+			write(1, "\n", 1);
+		}
+	}
+	else
+		write(1, "\n", 1);
+	return (0);
+}
+
+--tab_mult--
+
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb > 9)
+	{
+		ft_putnbr(nb / 10);
+		ft_putnbr(nb % 10);
+	}
+	else
+		ft_putchar(nb + 48);
+}
+
+int		ft_atoi(char *str)
+{
+	int i;
+	int result;
+
+	i = 0;
+	result = 0;
+	while (str[i] != '\0')
+	{
+		result *= 10;
+		result += str[i] - 48;
+		i++;
+	}
+	return (result);
+}
+
+int		main(int ac, char **av)
+{
+	int i;
+	int nb;
+
+	i = 1;
+	if (ac == 2)
+	{
+		nb = ft_atoi(av[1]);
+		while (i <= 9)
+		{
+			ft_putnbr(i);
+			write(1, " x ", 3);
+			ft_putnbr(nb);
+			write(1, " = ", 3);
+			ft_putnbr(nb * i);
+			if (i < 9)
+				write(1, "\n", 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--aff_first_param--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+
+	i = -1;
+	if (ac > 1)
+		while (av[1][++i])
+			write(1, &av[1][i], 1);
+	write(1, "\n", 1);
+	return (0);
+}
+
+--aff_last_param--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+
+	i = 0;
+	if (ac > 1)
+	{
+		ac--;
+		while (av[ac][i] != '\0')
+		{
+			write(1, &av[ac][i], 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--ft_countdown--
+
+#include <unistd.h>
+
+int		main(void)
+{
+	char digit;
+
+	digit = '9';
+	while (digit >= '0')
+	{
+		write(1, &digit, 1);
+		digit--;
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--ft_print_numbers--
+
+#include <unistd.h>
+
+void	ft_print_numbers(void)
+{
+	char digit;
+	
+	digit = '0';
+	while (digit <= '9')
+	{
+		write(1, &digit, 1);
+		digit++;
+	}
+}
+
+--maff_revalpha--
+
+#include <unistd.h>
+
+int		main(void)
+{
+	write(1, "zYxWvUtSrQpOnMlKjIhGfEdCbA\n", 27);
+	return (0);
+}
+
+--maff_alpha--
+
+#include <unistd.h>
+
+int		main(void)
+{
+	char even;
+	char odd;
+
+	even = 'B';
+	odd = 'a';
+	while (even <= 'Z')
+	{
+		write(1, &odd, 1);
+		write(1, &even, 1);
+		even += 2;
+		odd += 2;
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--first_word--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+
+	i = 0;
+	if (ac == 2)
+	{
+		while (av[1][i] == ' ' || av[1][i] == '\t')
+			i++;
+		while (av[1][i] != '\0' && av[1][i] != ' ' && av[1][i] != '\t')
+		{
+			write(1, &av[1][i], 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--rotone--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+	char tmp;
+
+	i = 0;
+	if (ac == 2)
+	{
+		while (av[1][i])
+		{
+			if ((av[1][i] >= 'A' && av[1][i] <= 'Y') ||
+				(av[1][i] >= 'a' && av[1][i] <= 'y'))
+			{
+				tmp = av[1][i] + 1;
+				write(1, &tmp, 1);
+			}
+			else if (av[1][i] == 'Z' || av[1][i] == 'z')
+				(av[1][i] == 'Z') ? write(1, "A", 1) : write(1, "a", 1);
+			else
+				write(1, &av[1][i], 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--search_and_replace--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+
+	i = 0;
+	if (ac == 4)
+	{
+		while (av[1][i] != '\0')
+		{
+			
+			if (av[2][1] == '\0' && av[3][1] == '\0')
+			{
+				if (av[1][i] == av[2][0])
+					write(1, &av[3][0], 1);
+				else
+					write(1, &av[1][i], 1);
+			}
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+
+--ulstr--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+
+	i = 0;
+	if (ac == 2)
+	{
+		while (av[1][i] != '\0')
+		{
+			if (av[1][i] >= 'A' && av[1][i] <= 'Z')
+				av[1][i] += 32;
+			else if (av[1][i] >= 'a' && av[1][i] <= 'z')
+				av[1][i] -= 32;
+			write(1, &av[1][i], 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--rev_print--
+
+#include <unistd.h>
+
+void	ft_putstr(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+}
+
+int		ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+int		main(int ac, char **av)
+{
+	int	i;
+	int	len;
+	char	tmp;
+
+	i = 0;
+	if (ac == 2)
+	{
+		len = ft_strlen(av[1]);
+		len--;
+		while (i < len)
+		{
+			tmp = av[1][i];
+			av[1][i] = av[1][len];
+			av[1][len] = tmp;
+			i++;
+			len--;
+		}
+		ft_putstr(av[1]);
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--alpha_mirror--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+
+	i = 0;
+	if (ac == 2)
+	{
+		while (av[1][i] != '\0')
+		{
+			if (av[1][i] >= 'A' && av[1][i] <= 'Z')
+				av[1][i] = 'M' - (av[1][i] - 'N');
+			else if (av[1][i] >= 'a' && av[1][i] <= 'z')
+				av[1][i] = 'm' - (av[1][i] - 'n');
+			write(1, &av[1][i], 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+
+--do_op--
+
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int		main(int ac, char **av)
+{
+	int a;
+	int b;
+	int result;
+	char op;
+
+	result = 0;
+	if (ac == 4)
+	{
+		a = atoi(av[1]);
+		op = av[2][0];
+		b = atoi(av[3]);
+		if (op == '+')
+			result = a + b;
+		else if (op == '-')
+			result = a - b;
+		else if (op == '*')
+			result = a * b;
+		else if (op == '/')
+			result = a / b;
+		else if (op == '%')
+			result = a % b;
+		printf("%d\n", result);
+	}
+	else
+		write(1, "\n", 1);
+	return (0);
+}
+
+
+--ft_strcspn--
+
+#include <stdlib.h>
+
+size_t	ft_strcspn(const char *s, const char *reject)
+{
+	size_t i;
+	size_t i2;
+
+	i = 0;
+	i2 = 0;
+	while (s[i] != '\0')
+	{
+		i2 = 0;
+		while (reject[i2] != '\0')
+		{
+			if (s[i] == reject[i2])
+				return (i);
+			i2++;
+		}
+		i++;
+	}
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+
+--ft_strdup--
+
+#include <stdlib.h>
+
+int		ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(char *src)
+{
+	int	i;
+	int	len;
+	char	*copy;
+
+	i = 0;
+	len = ft_strlen(src);
+	copy = (char*)malloc(sizeof(char) * len + 1);
+	if (copy == NULL)
+		return (NULL);
+	while (src[i] != '\0')
+	{
+		copy[i] = src[i];
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
+}
+
+--inter--
+
+#include <unistd.h>
+
+int		check_doubles(char *str, char c, int pos)
+{
+	int i;
+
+	i = 0;
+	while (i < pos)
+	{
+		if (str[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		main(int ac, char **av)
+{
+	int i;
+	int i2;
+
+	i = 0;
+	if (ac == 3)
+	{
+		while (av[1][i] != '\0')
+		{
+			i2 = 0;
+			while (av[2][i2] != '\0')
+			{
+				if (av[1][i] == av[2][i2])
+				{
+					if (check_doubles(av[1], av[1][i], i))
+					{
+						write(1, &av[1][i], 1);
+						break ;
+					}
+				}
+				i2++;
+			}
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--is_power_of_2--
+
+int		is_power_of_2(unsigned int n)
+{
+	unsigned long i;
+
+	i = 1;
+	while (i < 0xffffffff)
+	{
+		if (i == n)
+			return (1);
+		i *= 2;
+	}
+	return (0);
+}
+
+--last_word--
+
+#include <unistd.h>
+
+int		main(int ac, char **av)
+{
+	int i;
+	char *lw;
+
+	i = 0;
+	if (ac == 2)
+	{
+		while (av[1][i] != '\0')
+		{
+			if (av[1][i] <= 32 && av[1][i + 1] > 32)
+				lw = &av[1][i + 1];
+			i++;
+		}
+		i = 0;
+		while (lw && lw[i] > 32)
+		{
+			write(1, &lw[i], 1);
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+
+--max--
+
+int		max(int* tab, unsigned int len)
+{
+	int i;
+	int tmp;
+
+	i = 1;
+	while (i < len - 1)
+	{
+		if (tab[i] < tab[i + 1])
+		{
+			tmp = tab[i];
+			tab[i] = tab[i + 1];
+			tab[i + 1] = tmp;
+			i = -1;
+		}
+		i++;
+	}
+	return (tab[0]);
+}
+
+--print_bits--
+
+#include <unistd.h>
+
+void	print_bits(unsigned char octet)
+{
+	int i;
+
+	i = 128;
+	while (i > 0)
+	{
+		if (octet >= i)
+		{
+			write(1, "1", 1);
+			octet %= i;
+			i /= 2; 
+		}
+		else
+		{
+			write(1, "0", 1);
+			i /= 2;
+		}
+	}
+}
+
+--reverse_bits--
+
+unsigned char	reverse_bits(unsigned char octet)
+{
+	int i;
+	unsigned char result;
+
+	i = 8;
+	result = 0;
+	while (i > 0)
+	{
+		result = result * 2 + (octet % 2);
+		octet /= 2;
+		i--;
+	}
+	return (result);
+}
+
+
+--swap_bits--
+
+unsigned char	swap_bits(unsigned char octet)
+{
+	return ((octet >> 4) | (octet << 4));
+}
+
+--union--
+
+#include <unistd.h>
+
+int		check_doubles2(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		check_doubles1(char *str, char c, int pos)
+{
+	int i;
+
+	i = 0;
+	while (i < pos)
+	{
+		if (str[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		main(int ac, char **av)
+{
+	int i;
+
+	i = 0;
+	if (ac == 3)
+	{
+		while (av[1][i] != '\0')
+		{
+			if (check_doubles1(av[1], av[1][i], i))
+				write(1, &av[1][i], 1);
+			i++;
+		}
+		i = 0;
+		while (av[2][i] != '\0')
+		{
+			if (check_doubles2(av[1], av[2][i]))
+			{
+				if (check_doubles1(av[2], av[2][i], i))
+					write(1, &av[2][i], 1);
+			}
+			i++;
+		}
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
+--wdmatch--
+
+#include <unistd.h>
+
+void	ft_putstr(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+}
+
+int		ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+int		main(int ac, char **av)
+{
+	int i;
+	int i2;
+	int wdlen;
+
+	i = 0;
+	i2 = 0;
+	wdlen = 0;
+	if (ac == 3)
+	{
+		while (av[1][i] != '\0')
+		{
+			while (av[2][i2] != '\0')
+			{
+				if (av[1][i] == av[2][i2])
+				{
+					wdlen++;
+					break ;
+				}
+				i2++;
+			}
+			i++;
+		}
+		if (wdlen == ft_strlen(av[1]))
+			ft_putstr(av[1]);
+	}
+	write(1, "\n", 1);
+	return (0);
+}
+
